@@ -3,13 +3,18 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
+import { useAuth } from '@/lib/auth-context';
 import { Topic } from '@/types';
 import { getColorMeta } from '@/lib/colors';
+import AuthModal from '@/components/AuthModal';
 
 export default function TestsPage() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null);
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
     api.getTopics()
@@ -17,6 +22,15 @@ export default function TestsPage() {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
+
+  const handleTopicClick = (topicId: string, hasQuestions: boolean) => {
+    if (!hasQuestions) return;
+    if (!user) {
+      setShowAuthPrompt(true);
+      return;
+    }
+    router.push(`/tests/${topicId}`);
+  };
 
   return (
     <div className="px-4 py-10 max-w-6xl mx-auto animate-fade-slide">
@@ -37,14 +51,13 @@ export default function TestsPage() {
             return (
               <div
                 key={t.id}
-                onClick={() => qCount > 0 && router.push(`/tests/${t.id}`)}
+                onClick={() => handleTopicClick(t.id, qCount > 0)}
                 className="card-hover p-6 rounded-2xl border-2 flex items-center justify-between relative overflow-hidden group"
                 style={{
                   background: meta.bg,
                   borderColor: meta.border,
                   cursor: qCount > 0 ? 'pointer' : 'default',
                   opacity: qCount > 0 ? 1 : 0.5,
-                  animationDelay: `${i * 0.08}s`,
                 }}
               >
                 <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-10 transition-opacity group-hover:opacity-20" style={{ background: t.color }} />
@@ -71,6 +84,43 @@ export default function TestsPage() {
             );
           })}
         </div>
+      )}
+
+      {/* Auth prompt modal */}
+      {showAuthPrompt && !authMode && (
+        <div className="fixed inset-0 bg-black/50 z-[200] flex items-center justify-center backdrop-blur-sm animate-fade-scale" onClick={() => setShowAuthPrompt(false)}>
+          <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm bg-[#fefcf9] rounded-2xl p-8 border border-stone-200 shadow-2xl text-center">
+            <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center mx-auto mb-4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ea580c" strokeWidth="2" strokeLinecap="round">
+                <path d="M15 2l-6.5 13a4.5 4.5 0 107.5 0L9.5 2"/><path d="M8.5 2h7"/>
+              </svg>
+            </div>
+            <h2 className="text-xl font-extrabold mb-2">Avval tizimga kiring</h2>
+            <p className="text-sm text-stone-500 mb-6">Test yechish uchun ro&apos;yxatdan o&apos;ting yoki akkauntingizga kiring</p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => { setShowAuthPrompt(false); setAuthMode('register'); }}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold text-sm shadow-lg shadow-orange-500/25"
+              >
+                Ro&apos;yxatdan o&apos;tish
+              </button>
+              <button
+                onClick={() => { setShowAuthPrompt(false); setAuthMode('login'); }}
+                className="w-full py-3 rounded-xl border-2 border-stone-200 text-stone-700 font-bold text-sm hover:border-orange-300 transition-colors"
+              >
+                Kirish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {authMode && (
+        <AuthModal
+          mode={authMode}
+          onClose={() => setAuthMode(null)}
+          onSwitch={() => setAuthMode(authMode === 'login' ? 'register' : 'login')}
+        />
       )}
     </div>
   );

@@ -1,50 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import AuthModal from './AuthModal';
 import NotificationPanel from './NotificationPanel';
 
-// Chemistry SVG icons
-const FlaskIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 3h6M10 3v7.4L4.2 19.2A1.5 1.5 0 005.4 21h13.2a1.5 1.5 0 001.2-1.8L14 10.4V3"/><path d="M8.5 14h7"/>
-  </svg>
-);
-
-const AtomIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.5"/><ellipse cx="12" cy="12" rx="9" ry="4"/>
-    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-60 12 12)"/>
-  </svg>
-);
-
-const MoleculeIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-    <circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="7" r="2.5"/><circle cx="12" cy="17" r="2.5"/>
-    <line x1="9" y1="8.5" x2="10.5" y2="15"/><line x1="15" y1="8.5" x2="13.5" y2="15"/><line x1="9.5" y1="7" x2="14.5" y2="7"/>
-  </svg>
-);
-
-const TestTubeIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <path d="M15 2l-6.5 13a4.5 4.5 0 107.5 0L9.5 2"/><path d="M8.5 2h7"/>
-  </svg>
-);
-
 export default function Navbar() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
   const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null);
   const [showNotif, setShowNotif] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+        setShowProfile(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   const navItems = [
-    { label: 'Asosiy', href: '/', icon: <AtomIcon /> },
-    { label: 'Testlar', href: '/tests', icon: <TestTubeIcon /> },
-    { label: 'Biz haqimizda', href: '/about', icon: <MoleculeIcon /> },
-    { label: 'Aloqa', href: '/contact', icon: <FlaskIcon /> },
+    { label: 'Asosiy', href: '/' },
+    { label: 'Testlar', href: '/tests' },
+    { label: 'Biz haqimizda', href: '/about' },
+    { label: 'Aloqa', href: '/contact' },
   ];
 
   return (
@@ -52,7 +38,7 @@ export default function Navbar() {
       <nav className="sticky top-0 z-50 glass border-b border-orange-100/50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Logo — Element card style */}
+            {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="relative">
                 <div className="w-10 h-11 rounded-lg bg-gradient-to-br from-orange-500 to-orange-700 flex flex-col items-center justify-center text-white shadow-lg shadow-orange-500/20 group-hover:shadow-orange-500/40 transition-shadow">
@@ -60,7 +46,6 @@ export default function Navbar() {
                   <span className="text-base font-black leading-none">Jp</span>
                   <span className="text-[4px] opacity-50">JAP</span>
                 </div>
-                {/* Tiny orbiting dot */}
                 <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               </div>
               <div>
@@ -72,20 +57,19 @@ export default function Navbar() {
             </Link>
 
             {/* Center nav */}
-            <div className="flex items-center gap-0.5 bg-stone-100/60 rounded-full p-1">
+            <div className="hidden md:flex items-center gap-0.5 bg-stone-100/60 rounded-full p-1">
               {navItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
                       isActive
                         ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/25'
                         : 'text-stone-500 hover:text-orange-600 hover:bg-white/80'
                     }`}
                   >
-                    <span className={isActive ? 'text-white/80' : 'text-stone-400'}>{item.icon}</span>
                     {item.label}
                   </Link>
                 );
@@ -98,7 +82,7 @@ export default function Navbar() {
               {user && (
                 <div className="relative">
                   <button
-                    onClick={() => setShowNotif(!showNotif)}
+                    onClick={() => { setShowNotif(!showNotif); setShowProfile(false); }}
                     className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
                       showNotif ? 'bg-orange-50 text-orange-600' : 'text-stone-400 hover:bg-stone-100 hover:text-stone-600'
                     }`}
@@ -112,26 +96,66 @@ export default function Navbar() {
                 </div>
               )}
 
-              {/* Auth */}
+              {/* Profile / Auth */}
               {user ? (
-                <div className="flex items-center gap-2 ml-1">
-                  <div className="flex items-center gap-2 bg-stone-100/70 rounded-full pl-1 pr-3 py-1">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-[11px] font-bold shadow-sm">
-                      {user.firstName.charAt(0)}
-                    </div>
-                    <span className="text-xs font-semibold text-stone-700 hidden sm:inline">{user.firstName}</span>
-                  </div>
-                  {user.role === 'ADMIN' && (
-                    <Link href="/admin" className="text-[10px] px-2.5 py-1 rounded-full bg-stone-900 text-white font-bold hover:bg-stone-800 transition-colors">
-                      Admin
-                    </Link>
-                  )}
+                <div className="relative" ref={profileRef}>
                   <button
-                    onClick={logout}
-                    className="text-[11px] text-stone-400 hover:text-stone-600 px-2 py-1 rounded-full hover:bg-stone-100 transition-all"
+                    onClick={() => { setShowProfile(!showProfile); setShowNotif(false); }}
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all hover:scale-105 ring-2 ring-white"
                   >
-                    Chiqish
+                    {user.firstName.charAt(0).toUpperCase()}{user.lastName.charAt(0).toUpperCase()}
                   </button>
+
+                  {/* Profile dropdown */}
+                  {showProfile && (
+                    <div className="absolute top-12 right-0 w-56 bg-white border-2 border-stone-100 rounded-2xl shadow-xl overflow-hidden animate-fade-scale z-50">
+                      {/* User info header */}
+                      <div className="px-4 py-3 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+                        <div className="text-sm font-extrabold text-stone-800">{user.firstName} {user.lastName}</div>
+                        <div className="text-[11px] text-stone-500 mt-0.5">{user.email}</div>
+                      </div>
+
+                      {/* Menu items */}
+                      <div className="py-1.5">
+                        <Link
+                          href="/cabinet"
+                          onClick={() => setShowProfile(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 text-xs font-semibold text-stone-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                          </svg>
+                          Kabinet
+                        </Link>
+
+                        {user.role === 'ADMIN' && (
+                          <Link
+                            href="/admin"
+                            onClick={() => setShowProfile(false)}
+                            className="flex items-center gap-3 px-4 py-2.5 text-xs font-semibold text-stone-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                          >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                              <path d="M12.22 2h-.44a2 2 0 00-2 2v.18a2 2 0 01-1 1.73l-.43.25a2 2 0 01-2 0l-.15-.08a2 2 0 00-2.73.73l-.22.38a2 2 0 00.73 2.73l.15.1a2 2 0 011 1.72v.51a2 2 0 01-1 1.74l-.15.09a2 2 0 00-.73 2.73l.22.38a2 2 0 002.73.73l.15-.08a2 2 0 012 0l.43.25a2 2 0 011 1.73V20a2 2 0 002 2h.44a2 2 0 002-2v-.18a2 2 0 011-1.73l.43-.25a2 2 0 012 0l.15.08a2 2 0 002.73-.73l.22-.39a2 2 0 00-.73-2.73l-.15-.08a2 2 0 01-1-1.74v-.5a2 2 0 011-1.74l.15-.09a2 2 0 00.73-2.73l-.22-.38a2 2 0 00-2.73-.73l-.15.08a2 2 0 01-2 0l-.43-.25a2 2 0 01-1-1.73V4a2 2 0 00-2-2z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            Admin panel
+                          </Link>
+                        )}
+
+                        <div className="border-t border-stone-100 my-1.5" />
+
+                        <button
+                          onClick={() => { logout(); setShowProfile(false); }}
+                          className="flex items-center gap-3 px-4 py-2.5 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors w-full text-left"
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                          </svg>
+                          Chiqish
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="flex gap-2 ml-1">
@@ -143,7 +167,7 @@ export default function Navbar() {
                   </button>
                   <button
                     onClick={() => setAuthMode('register')}
-                    className="text-xs font-bold text-white px-4 py-2 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-md shadow-orange-500/25 hover:shadow-orange-500/40 transition-all"
+                    className="text-xs font-bold text-white px-4 py-2 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-md shadow-orange-500/25 transition-all"
                   >
                     Ro&apos;yxatdan o&apos;tish
                   </button>

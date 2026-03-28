@@ -39,6 +39,9 @@ export const api = {
 
   me: () => request('/auth/me'),
 
+  updateProfile: (data: { firstName?: string; lastName?: string; phone?: string }) =>
+    request('/auth/profile', { method: 'PUT', body: JSON.stringify(data) }),
+
   // Topics
   getTopics: () => request('/topics'),
 

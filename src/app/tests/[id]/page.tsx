@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
@@ -11,7 +11,7 @@ import { getColorMeta } from '@/lib/colors';
 export default function TestPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   const [topic, setTopic] = useState<Topic | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -23,8 +23,16 @@ export default function TestPage() {
   const [submitting, setSubmitting] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Require login
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/tests');
+    }
+  }, [user, authLoading, router]);
+
   // Fetch topic + questions
   useEffect(() => {
+    if (!user) return;
     api.getTopic(id)
       .then((data: any) => {
         setTopic(data);
@@ -34,13 +42,14 @@ export default function TestPage() {
       })
       .catch(() => router.push('/tests'))
       .finally(() => setLoading(false));
-  }, [id, router]);
+  }, [id, router, user]);
 
   // Timer
   useEffect(() => {
+    if (!user) return;
     timerRef.current = setInterval(() => setTimer((t) => t + 1), 1000);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, []);
+  }, [user]);
 
   const formatTime = (s: number) => {
     const m = Math.floor(s / 60);
@@ -48,51 +57,41 @@ export default function TestPage() {
     return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   };
 
-  // Select answer — store ORIGINAL index
   const selectAnswer = (qIndex: number, displayIdx: number) => {
     const originalIdx = shuffleMap[qIndex]?.[displayIdx] ?? displayIdx;
     setAnswers((prev) => ({ ...prev, [qIndex]: originalIdx }));
   };
 
-  // Get display index for highlighting
   const getSelectedDisplay = (qIndex: number): number | undefined => {
     const orig = answers[qIndex];
     if (orig === undefined || !shuffleMap[qIndex]) return undefined;
     return shuffleMap[qIndex].indexOf(orig);
   };
 
-  // Submit test
   const handleSubmit = async () => {
     if (timerRef.current) clearInterval(timerRef.current);
     setSubmitting(true);
 
-    if (user) {
-      try {
-        const result: any = await api.submitResult({
-          topicId: id,
-          answers: Object.fromEntries(Object.entries(answers).map(([k, v]) => [k, v])),
-          timeSpent: timer,
-        });
-        router.push(`/result?id=${result.id}`);
-        return;
-      } catch {
-        // Fall through to local result
-      }
+    try {
+      const result: any = await api.submitResult({
+        topicId: id,
+        answers: Object.fromEntries(Object.entries(answers).map(([k, v]) => [k, v])),
+        timeSpent: timer,
+      });
+      router.push(`/result?id=${result.id}`);
+    } catch {
+      // Fallback to local result
+      const correct = questions.filter((q, i) => answers[i] === q.correct).length;
+      const params = new URLSearchParams({
+        topic: topic?.name || '', symbol: topic?.symbol || '', color: topic?.color || '',
+        correct: String(correct), total: String(questions.length), time: formatTime(timer),
+      });
+      router.push(`/result?${params.toString()}`);
     }
-
-    // Local result for non-logged-in users
-    const correct = questions.filter((q, i) => answers[i] === q.correct).length;
-    const params = new URLSearchParams({
-      topic: topic?.name || '',
-      symbol: topic?.symbol || '',
-      color: topic?.color || '',
-      correct: String(correct),
-      total: String(questions.length),
-      time: formatTime(timer),
-    });
-    router.push(`/result?${params.toString()}`);
   };
 
+  if (authLoading) return <div className="text-center py-20 text-stone-400">Yuklanmoqda...</div>;
+  if (!user) return null;
   if (loading) return <div className="text-center py-20 text-stone-400">Yuklanmoqda...</div>;
   if (!topic || questions.length === 0) return <div className="text-center py-20 text-stone-400">Savollar topilmadi</div>;
 
@@ -112,10 +111,7 @@ export default function TestPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-1.5">
         <span className="text-sm font-bold flex items-center gap-1.5" style={{ color: topic.color }}>
-          <span
-            className="w-6 h-7 rounded text-[10px] font-extrabold text-white inline-flex items-center justify-center"
-            style={{ background: topic.color }}
-          >
+          <span className="w-6 h-7 rounded text-[10px] font-extrabold text-white inline-flex items-center justify-center" style={{ background: topic.color }}>
             {topic.symbol}
           </span>
           {topic.name}
@@ -133,10 +129,7 @@ export default function TestPage() {
         <span>Javob berildi: {answeredCount} / {totalQ}</span>
       </div>
       <div className="h-1 bg-stone-100 rounded-full mb-7">
-        <div
-          className="h-1 rounded-full transition-all duration-300"
-          style={{ width: `${((currentQ + 1) / totalQ) * 100}%`, background: topic.color }}
-        />
+        <div className="h-1 rounded-full transition-all duration-300" style={{ width: `${((currentQ + 1) / totalQ) * 100}%`, background: topic.color }} />
       </div>
 
       {/* Question */}
@@ -150,27 +143,14 @@ export default function TestPage() {
         {currentShuffle.map((origIdx, displayIdx) => {
           const isSelected = selectedDisplayIdx === displayIdx;
           return (
-            <button
-              key={displayIdx}
-              onClick={() => selectAnswer(currentQ, displayIdx)}
-              className="flex items-center gap-3 p-3.5 rounded-lg border-2 text-left transition-all text-sm font-semibold"
-              style={{
-                borderColor: isSelected ? topic.color : '#e7e5e4',
-                background: isSelected ? meta.bg : '#fff',
-              }}
-            >
-              <span
-                className="w-7 h-7 rounded-md flex items-center justify-center text-xs font-extrabold flex-shrink-0 transition-all"
-                style={{
-                  background: isSelected ? topic.color : '#f5f5f0',
-                  color: isSelected ? '#fff' : '#78716c',
-                }}
-              >
+            <button key={displayIdx} onClick={() => selectAnswer(currentQ, displayIdx)}
+              className="flex items-center gap-3 p-3.5 rounded-xl border-2 text-left transition-all text-sm font-semibold"
+              style={{ borderColor: isSelected ? topic.color : '#e7e5e4', background: isSelected ? meta.bg : '#fff' }}>
+              <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold flex-shrink-0 transition-all"
+                style={{ background: isSelected ? topic.color : '#f5f5f0', color: isSelected ? '#fff' : '#78716c' }}>
                 {String.fromCharCode(65 + displayIdx)}
               </span>
-              <span style={{ color: isSelected ? '#1c1917' : '#57534e' }}>
-                {getOptionText(q, origIdx)}
-              </span>
+              <span style={{ color: isSelected ? '#1c1917' : '#57534e' }}>{getOptionText(q, origIdx)}</span>
             </button>
           );
         })}
@@ -178,52 +158,34 @@ export default function TestPage() {
 
       {/* Navigation */}
       <div className="flex justify-between items-center gap-2">
-        <button
-          onClick={() => setCurrentQ(Math.max(0, currentQ - 1))}
-          disabled={currentQ === 0}
-          className="px-4 py-2.5 rounded-md border-2 border-stone-900 text-sm font-bold disabled:opacity-30 disabled:border-stone-200"
-        >
+        <button onClick={() => setCurrentQ(Math.max(0, currentQ - 1))} disabled={currentQ === 0}
+          className="px-4 py-2.5 rounded-xl border-2 border-stone-900 text-sm font-bold disabled:opacity-30 disabled:border-stone-200">
           ← Oldingi
         </button>
-
         <div className="flex gap-1 flex-wrap justify-center">
           {questions.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentQ(i)}
-              className="w-6 h-6 rounded text-[9px] font-bold transition-all"
+            <button key={i} onClick={() => setCurrentQ(i)} className="w-6 h-6 rounded text-[9px] font-bold transition-all"
               style={{
                 background: i === currentQ ? topic.color : answers[i] !== undefined ? meta.bg : '#f5f5f0',
                 color: i === currentQ ? '#fff' : answers[i] !== undefined ? topic.color : '#a8a29e',
                 border: `1px solid ${i === currentQ ? topic.color : answers[i] !== undefined ? meta.border : '#e7e5e4'}`,
-              }}
-            >
+              }}>
               {i + 1}
             </button>
           ))}
         </div>
-
         {currentQ < totalQ - 1 ? (
-          <button
-            onClick={() => setCurrentQ(currentQ + 1)}
-            className="px-4 py-2.5 rounded-md text-white text-sm font-bold"
-            style={{ background: topic.color }}
-          >
+          <button onClick={() => setCurrentQ(currentQ + 1)} className="px-4 py-2.5 rounded-xl text-white text-sm font-bold" style={{ background: topic.color }}>
             Keyingi →
           </button>
         ) : (
-          <button
-            onClick={handleSubmit}
-            disabled={submitting}
-            className="px-4 py-2.5 rounded-md bg-green-600 text-white text-sm font-bold disabled:opacity-50"
-          >
+          <button onClick={handleSubmit} disabled={submitting} className="px-4 py-2.5 rounded-xl bg-green-600 text-white text-sm font-bold disabled:opacity-50">
             {submitting ? '...' : 'Natijani bilish'}
           </button>
         )}
       </div>
-
       <div className="text-center mt-4">
-        <button onClick={() => router.push('/tests')} className="text-xs text-stone-400 border border-stone-200 rounded-md px-3 py-1.5">
+        <button onClick={() => router.push('/tests')} className="text-xs text-stone-400 border border-stone-200 rounded-xl px-3 py-1.5 hover:border-orange-200 transition-colors">
           Bekor qilish
         </button>
       </div>
