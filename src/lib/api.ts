@@ -145,4 +145,10 @@ export const api = {
 
   removeTopicFromGroup: (groupId: string, topicId: string) =>
     request(`/groups/${groupId}/topics/${topicId}`, { method: 'DELETE' }),
+
+  joinGroupByCode: (code: string) =>
+    request('/groups/join', { method: 'POST', body: JSON.stringify({ code }) }),
+
+  regenerateGroupCode: (groupId: string) =>
+    request(`/groups/${groupId}/regenerate-code`, { method: 'POST' }),
 };

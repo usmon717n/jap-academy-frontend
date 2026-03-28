@@ -8,7 +8,7 @@ import { Topic, Question, Contact } from '@/types';
 import { AVAILABLE_COLORS, getColorMeta } from '@/lib/colors';
 
 interface Teacher { id: string; email: string; firstName: string; lastName: string; phone: string; teacherGroups: Array<{ group: { id: string; name: string; color: string } }> }
-interface GroupData { id: string; name: string; color: string; _count: { members: number; teachers: number; topics: number }; teachers: Array<{ teacher: { id: string; firstName: string; lastName: string; email: string } }> }
+interface GroupData { id: string; name: string; joinCode: string; color: string; _count: { members: number; teachers: number; topics: number }; teachers: Array<{ teacher: { id: string; firstName: string; lastName: string; email: string } }> }
 
 export default function AdminPage() {
   const { user, isAdmin, loading: authLoading } = useAuth();
@@ -299,6 +299,11 @@ export default function AdminPage() {
                       <div>
                         <div className="text-sm font-extrabold">{g.name}</div>
                         <div className="text-[11px] text-stone-400">{g._count.members} o&apos;quvchi · {g._count.teachers} o&apos;qituvchi · {g._count.topics} mavzu</div>
+                        <div className="flex items-center gap-2 mt-1.5">
+                          <span className="text-[10px] text-stone-400">Kod:</span>
+                          <span className="text-xs font-black tracking-[3px] bg-orange-50 text-orange-700 px-2.5 py-0.5 rounded-md border border-orange-200">{g.joinCode}</span>
+                          <button onClick={(e) => { e.stopPropagation(); navigator.clipboard.writeText(g.joinCode); }} className="text-[9px] text-orange-500 hover:text-orange-700 font-semibold">Nusxalash</button>
+                        </div>
                       </div>
                     </div>
                     <button onClick={() => handleDeleteGroup(g.id)} className="px-3 py-1.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-[10px] font-bold">O&apos;chirish</button>

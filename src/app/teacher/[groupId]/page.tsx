@@ -7,7 +7,7 @@ import { api } from '@/lib/api';
 import { Topic, Result } from '@/types';
 
 interface GroupDetail {
-  id: string; name: string; color: string;
+  id: string; name: string; color: string; joinCode: string;
   members: Array<{ id: string; user: { id: string; firstName: string; lastName: string; email: string; phone: string } }>;
   teachers: Array<{ teacher: { id: string; firstName: string; lastName: string; email: string } }>;
   topics: Array<{ id: string; topic: { id: string; name: string; symbol: string; color: string; number: string } }>;
@@ -97,9 +97,16 @@ export default function TeacherGroupPage() {
         </div>
         <div>
           <h1 className="text-2xl font-black">{group.name}</h1>
-          <p className="text-xs text-stone-500 mt-0.5">
-            {group.members.length} o&apos;quvchi &middot; {group.topics.length} mavzu
-          </p>
+          <div className="flex items-center gap-3 mt-1">
+            <p className="text-xs text-stone-500">
+              {group.members.length} o&apos;quvchi &middot; {group.topics.length} mavzu
+            </p>
+            <div className="flex items-center gap-1.5 bg-orange-50 px-2.5 py-1 rounded-lg border border-orange-200">
+              <span className="text-[10px] text-orange-600">Kod:</span>
+              <span className="text-xs font-black tracking-[3px] text-orange-700">{group.joinCode}</span>
+              <button onClick={() => navigator.clipboard.writeText(group.joinCode)} className="text-[9px] text-orange-500 hover:text-orange-700 font-semibold ml-1">Nusxalash</button>
+            </div>
+          </div>
         </div>
       </div>
 
