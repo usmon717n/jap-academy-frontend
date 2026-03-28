@@ -98,4 +98,51 @@ export const api = {
 
   markContactHandled: (id: string) =>
     request(`/contacts/${id}/handled`, { method: 'PATCH' }),
+
+  // Teachers (admin only)
+  getTeachers: () => request('/teachers'),
+
+  createTeacher: (data: { email: string; password: string; firstName: string; lastName: string; phone?: string }) =>
+    request('/teachers', { method: 'POST', body: JSON.stringify(data) }),
+
+  deleteTeacher: (id: string) =>
+    request(`/teachers/${id}`, { method: 'DELETE' }),
+
+  getAllStudents: () => request('/teachers/students'),
+
+  // Groups
+  getGroups: () => request('/groups'),
+
+  getMyGroups: () => request('/groups/my'),
+
+  getGroup: (id: string) => request(`/groups/${id}`),
+
+  getGroupResults: (id: string) => request(`/groups/${id}/results`),
+
+  createGroup: (data: { name: string; color?: string }) =>
+    request('/groups', { method: 'POST', body: JSON.stringify(data) }),
+
+  updateGroup: (id: string, data: Record<string, unknown>) =>
+    request(`/groups/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+
+  deleteGroup: (id: string) =>
+    request(`/groups/${id}`, { method: 'DELETE' }),
+
+  assignTeacherToGroup: (groupId: string, teacherId: string) =>
+    request(`/groups/${groupId}/teachers`, { method: 'POST', body: JSON.stringify({ userId: teacherId }) }),
+
+  removeTeacherFromGroup: (groupId: string, teacherId: string) =>
+    request(`/groups/${groupId}/teachers/${teacherId}`, { method: 'DELETE' }),
+
+  addMemberToGroup: (groupId: string, userId: string) =>
+    request(`/groups/${groupId}/members`, { method: 'POST', body: JSON.stringify({ userId }) }),
+
+  removeMemberFromGroup: (groupId: string, userId: string) =>
+    request(`/groups/${groupId}/members/${userId}`, { method: 'DELETE' }),
+
+  assignTopicToGroup: (groupId: string, topicId: string) =>
+    request(`/groups/${groupId}/topics`, { method: 'POST', body: JSON.stringify({ userId: topicId }) }),
+
+  removeTopicFromGroup: (groupId: string, topicId: string) =>
+    request(`/groups/${groupId}/topics/${topicId}`, { method: 'DELETE' }),
 };
