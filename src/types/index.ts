@@ -4,7 +4,7 @@ export interface User {
   firstName: string;
   lastName: string;
   phone: string;
-  role: 'STUDENT' | 'ADMIN';
+  role: 'STUDENT' | 'ADMIN' | 'TEACHER';
 }
 
 export interface AuthResponse {
