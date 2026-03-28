@@ -6,14 +6,13 @@ import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'JAP Academy — Kimyo test platformasi',
-  description: "Kimyo faniga ixtisoslashgan zamonaviy o'quv markaz. Interaktiv testlar, sertifikatlar.",
+  description: "Kimyo faniga ixtisoslashgan zamonaviy o'quv markaz.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uz">
       <body className="min-h-screen flex flex-col">
-        {/* Fixed floating blobs — visible on ALL pages */}
         <div className="blobs-bg">
           <div className="blob blob-1" />
           <div className="blob blob-2" />
@@ -21,7 +20,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="blob blob-4" />
           <div className="blob blob-5" />
         </div>
-
         <AuthProvider>
           <Navbar />
           <main className="flex-1 page-content animate-fade-slide">{children}</main>
