@@ -15,7 +15,7 @@ export const api = {
   getContacts: () => request('/contacts'),
   markContactHandled: (id: string) => request(`/contacts/${id}/handled`, { method: 'PATCH' }),
 
-  getSiteContent: () => request('/site-content'),
+  getSiteContent: () => request('/site-content').catch(() => ({})),
   setSiteContent: (key: string, value: any) =>
     request(`/site-content/${key}`, { method: 'PUT', body: JSON.stringify({ value }) }),
 };

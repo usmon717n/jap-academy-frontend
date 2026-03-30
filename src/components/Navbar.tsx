@@ -62,7 +62,7 @@ export default function Navbar() {
                 <div className="relative" ref={ref}>
                   <button onClick={() => setShowProfile(!showProfile)}
                     className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 hover:scale-110 ring-2 ring-white/60">
-                    {user.firstName.charAt(0)}{user.lastName.charAt(0)}
+                    {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
                   </button>
                   {showProfile && (
                     <div className="absolute top-12 right-0 w-56 rounded-2xl shadow-xl overflow-hidden animate-fade-scale z-50" style={{
