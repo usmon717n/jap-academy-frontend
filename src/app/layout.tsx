@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { AuthProvider } from '@/lib/auth-context';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'JAP Academy — Kimyo o\'quv markazi',
-  description: "Kimyo faniga ixtisoslashgan zamonaviy o'quv markaz. Professional o'qituvchilar, zamonaviy dastur.",
+  description: "Kimyo faniga ixtisoslashgan zamonaviy o'quv markaz.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -19,9 +20,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="blob blob-4" />
           <div className="blob blob-5" />
         </div>
-        <Navbar />
-        <main className="flex-1 page-content animate-fade-slide">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-1 page-content animate-fade-slide">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

@@ -148,3 +148,16 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#ea580c}
 .card-hover:hover { transform: translateY(-6px); box-shadow: 0 25px 50px rgba(0,0,0,0.08); }
 
 .page-content { position: relative; z-index: 1; }
+
+/* Infinite scroll left animation */
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+.animate-scroll-left {
+  display: flex;
+  animation: scrollLeft 20s linear infinite;
+}
+.animate-scroll-left:hover {
+  animation-play-state: paused;
+}
