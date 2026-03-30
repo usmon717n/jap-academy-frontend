@@ -18,20 +18,20 @@ export default function HomePage() {
               o&apos;rganing
             </h1>
             <p className="text-base md:text-lg text-stone-500 leading-relaxed max-w-md mb-8">
-              JAP Academy — kimyo faniga ixtisoslashgan o&apos;quv markaz. Interaktiv testlar,
-              professional o&apos;qituvchilar va zamonaviy dastur.
+              JAP Academy — kimyo faniga ixtisoslashgan o&apos;quv markaz. Professional o&apos;qituvchilar,
+              zamonaviy dastur va individual yondashuv.
             </p>
             <div className="flex gap-3 flex-wrap">
-              <Link href="/tests" className="btn-primary px-8 py-4 rounded-full text-white text-sm font-bold flex items-center gap-2">
-                Testlarni boshlash <span>&rarr;</span>
+              <Link href="/contact" className="btn-primary px-8 py-4 rounded-full text-white text-sm font-bold flex items-center gap-2">
+                Kursga yozilish <span>&rarr;</span>
               </Link>
-              <Link href="/contact" className="btn-glass px-8 py-4 rounded-full text-sm font-bold text-stone-700">
-                Kursga yozilish
+              <Link href="/about" className="btn-glass px-8 py-4 rounded-full text-sm font-bold text-stone-700">
+                Batafsil ma&apos;lumot
               </Link>
             </div>
           </div>
 
-          {/* Flask */}
+          {/* Flask illustration */}
           <div className="flex-1 flex justify-center">
             <svg viewBox="0 0 300 380" width="280" height="360" style={{ filter: 'drop-shadow(0 20px 40px rgba(234,88,12,0.12))' }}>
               <defs>
@@ -50,7 +50,7 @@ export default function HomePage() {
                 <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M65 250 Q110 235 150 245 Q190 255 235 240 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z;M65 245 Q100 258 150 248 Q200 238 235 248 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z;M65 250 Q110 235 150 245 Q190 255 235 240 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z"/>
               </path>
               <circle cx="120" cy="290" r="5" fill="#fb923c" opacity="0.4"><animate attributeName="cy" values="290;230;290" dur="3.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;0.05;0.4" dur="3.5s" repeatCount="indefinite"/></circle>
-              <circle cx="170" cy="300" r="4" fill="#fdba74" opacity="0.3"><animate attributeName="cy" values="300;220;300" dur="4.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;0.03;0.3" dur="4.5s" repeatCount="indefinite"/></circle>
+              <circle cx="170" cy="300" r="4" fill="#fdba74" opacity="0.3"><animate attributeName="cy" values="300;220;300" dur="4.5s" repeatCount="indefinite"/></circle>
               <circle cx="145" cy="310" r="6" fill="#f97316" opacity="0.2"><animate attributeName="cy" values="310;240;310" dur="3s" repeatCount="indefinite"/></circle>
               <circle cx="195" cy="295" r="3.5" fill="#fb923c" opacity="0.35"><animate attributeName="cy" values="295;245;295" dur="3.8s" repeatCount="indefinite"/></circle>
             </svg>
@@ -58,21 +58,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats — GLASS, no dark background */}
+      {/* Stats — glass */}
       <section className="relative z-10 px-4 -mt-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex rounded-2xl overflow-hidden" style={{
             background: 'rgba(255,255,255,0.45)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(255,255,255,0.5)',
             boxShadow: '0 8px 32px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.4) inset',
           }}>
             {[
-              { n: '500+', l: 'SAVOLLAR', c: 'text-orange-600' },
-              { n: '4+', l: 'MAVZULAR', c: 'text-emerald-600' },
-              { n: '1200+', l: 'TALABALAR', c: 'text-orange-500' },
-              { n: 'PDF', l: 'SERTIFIKAT', c: 'text-blue-600' },
+              { n: '5+', l: 'YILLIK TAJRIBA', c: 'text-orange-600' },
+              { n: '200+', l: 'O\'QUVCHILAR', c: 'text-emerald-600' },
+              { n: '10+', l: 'O\'QITUVCHILAR', c: 'text-orange-500' },
+              { n: '95%', l: 'NATIJA', c: 'text-blue-600' },
             ].map((s, i) => (
               <div key={i} className={`flex-1 text-center py-7 ${i > 0 ? 'border-l border-white/40' : ''}`}>
                 <div className={`text-xl md:text-2xl font-black ${s.c}`}>{s.n}</div>
@@ -83,7 +82,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features — prominent glass cards */}
+      {/* Features */}
       <section className="px-4 py-20 max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{
@@ -95,22 +94,18 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { title: 'Interaktiv testlar', desc: 'Har bir mavzudan 20 ta savol, tezkor natija', icon: '⚗️', accent: '#ea580c' },
-            { title: "Professional o'qituvchilar", desc: 'Tajribali kimyo fani mutaxassislari', icon: '👨‍🔬', accent: '#2563eb' },
-            { title: 'Sertifikat', desc: 'Test yakunida rasmiy sertifikat yuklab oling', icon: '📜', accent: '#16a34a' },
-            { title: 'Kunlik eslatmalar', desc: 'Har kuni test yechish vaqti haqida xabar', icon: '🔔', accent: '#7c3aed' },
+            { title: 'Individual yondashuv', desc: 'Har bir o\'quvchiga alohida e\'tibor va tushuntirish', icon: '🎯', accent: '#ea580c' },
+            { title: 'Professional o\'qituvchilar', desc: 'Tajribali kimyo fani mutaxassislari jamoasi', icon: '👨‍🔬', accent: '#2563eb' },
+            { title: 'Zamonaviy dastur', desc: 'Eng so\'nggi o\'quv dasturi va metodikalar', icon: '📚', accent: '#16a34a' },
+            { title: 'Yuqori natijalar', desc: 'O\'quvchilarimizning 95% i imtihonlardan a\'lo o\'tadi', icon: '🏆', accent: '#7c3aed' },
           ].map((f, i) => (
             <div key={i} className="card-hover p-6 rounded-2xl relative overflow-hidden group cursor-default" style={{
-              background: 'rgba(255,255,255,0.55)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
+              background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
               border: '1px solid rgba(255,255,255,0.6)',
               boxShadow: '0 4px 20px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.5) inset',
             }}>
-              {/* Accent glow on hover */}
               <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: `radial-gradient(circle at top right, ${f.accent}15, transparent 70%)` }} />
-              {/* Accent line top */}
               <div className="absolute top-0 left-6 right-6 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
                 style={{ background: `linear-gradient(90deg, transparent, ${f.accent}40, transparent)` }} />
               <div className="relative z-10">
@@ -123,20 +118,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA — warm gradient glass, NOT dark */}
+      {/* CTA — warm glass */}
       <section className="px-4 pb-20">
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden p-12 md:p-16 text-center" style={{
             background: 'linear-gradient(135deg, rgba(234,88,12,0.12) 0%, rgba(251,146,60,0.08) 50%, rgba(245,158,11,0.1) 100%)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(234,88,12,0.15)',
             boxShadow: '0 8px 32px rgba(234,88,12,0.08)',
           }}>
-            <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">Hoziroq testlarni boshlang!</h3>
-            <p className="text-sm text-stone-500 mb-8 max-w-md mx-auto">80 dan ortiq savollar, 4 ta mavzu va sertifikat sizni kutmoqda</p>
-            <Link href="/tests" className="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm">
-              Boshlash <span>&rarr;</span>
+            <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">Hoziroq kursga yoziling!</h3>
+            <p className="text-sm text-stone-500 mb-8 max-w-md mx-auto">Professional o&apos;qituvchilar jamoasi sizni kutmoqda. Birinchi dars bepul!</p>
+            <Link href="/contact" className="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm">
+              Yozilish <span>&rarr;</span>
             </Link>
           </div>
         </div>

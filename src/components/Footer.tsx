@@ -25,7 +25,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">SAHIFALAR</h4>
-            {[{ label: 'Asosiy', href: '/' }, { label: 'Testlar', href: '/tests' }, { label: 'Biz haqimizda', href: '/about' }, { label: 'Aloqa', href: '/contact' }].map((l) => (
+            {[{ label: 'Asosiy', href: '/' }, { label: 'Biz haqimizda', href: '/about' }, { label: 'Aloqa', href: '/contact' }].map((l) => (
               <Link key={l.href} href={l.href} className="block text-xs text-stone-500 mb-2.5 hover:text-orange-600 transition-colors">{l.label}</Link>
             ))}
           </div>
