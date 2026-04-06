@@ -55,7 +55,7 @@ export default function Footer() {
             <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">MANZIL</h4>
             <div className="rounded-xl overflow-hidden border border-white/40" style={{ boxShadow: '0 4px 15px rgba(0,0,0,0.06)' }}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.5!2d69.2401!3d41.2995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE4JzAwLjAiTiA2OcKwMTQnMjQuMCJF!5e0!3m2!1sen!2s!4v1"
+                src="https://maps.google.com/maps?q=41.282271,69.210930&z=16&output=embed"
                 width="100%" height="140" style={{ border: 0 }} allowFullScreen loading="lazy"
               />
             </div>
@@ -64,6 +64,20 @@ export default function Footer() {
 
         <div className="border-t border-orange-200/30 pt-5 text-center">
           <span className="text-[10px] text-stone-400 tracking-wider">JAP ACADEMY &copy; 2026. BARCHA HUQUQLAR HIMOYALANGAN</span>
+          <div className="mt-4 flex flex-col items-center gap-1.5">
+            <a
+              href="https://t.me/usmonUmaraliyev"
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-sky-600 transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#0088cc" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.53 8.15l-1.83 8.63c-.14.62-.5.77-.99.48l-2.75-2.03-1.33 1.27c-.14.14-.27.27-.56.27l.2-2.82 5.1-4.62c.22-.2-.05-.31-.34-.12L8.86 13.4l-2.72-.85c-.59-.19-.6-.59.12-.87l10.62-4.1c.5-.18.93.12.65.57z" />
+              </svg>
+              <span>Developer</span>
+            </a>
+            <p className="text-[10px] text-stone-400 tracking-wide">Made with ❤️ and a lot of coffe ☕</p>
+          </div>
         </div>
       </div>
     </footer>

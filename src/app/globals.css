@@ -5,6 +5,43 @@
 :root { --brand: #ea580c; }
 body { color: #1c1917; overflow-x: hidden; }
 
+/* ═══ VIDEO BACKGROUND LAYER ═══ */
+.video-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: linear-gradient(145deg, #fef7ed 0%, #fef0dc 35%, #fefcf9 100%);
+}
+
+.video-bg__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  transform: scale(1.04);
+  filter: saturate(1.02) contrast(1.03);
+  animation: videoDrift 28s ease-in-out infinite alternate;
+}
+
+.video-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 245, 235, 0.42), transparent 40%),
+    linear-gradient(180deg, rgba(255, 250, 245, 0.58) 0%, rgba(255, 250, 245, 0.5) 45%, rgba(255, 250, 245, 0.62) 100%);
+}
+
+@keyframes videoDrift {
+  0% { transform: scale(1.04) translate3d(0, 0, 0); }
+  100% { transform: scale(1.08) translate3d(-1.5%, -1.5%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-bg__media { display: none; }
+}
+
 /* ═══ FLOATING BLOBS — FIXED BEHIND EVERYTHING ═══ */
 .blobs-bg {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
