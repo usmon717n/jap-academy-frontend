@@ -1,6 +1,16 @@
 const videos = [
-  { title: 'JAP Academy haqida', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  { title: 'O\'quvchilarimiz fikrlari', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+  {
+    title: 'Jamshid Qayumov, ta\'limdagi inqiroz, bolani kasbga majburlash, DTMdagi nohaq test haqida',
+    url: 'https://www.youtube.com/embed/tv_7EztcBkY',
+  },
+  {
+    title: 'Nega abituryentlarning baholari pasaymoqda',
+    url: 'https://www.youtube.com/embed/MYTCwO8IPmA',
+  },
+  {
+    title: '5 безумных мнемоник, которые помогут вам запомнить запах сложных эфиров.',
+    url: 'https://www.youtube.com/embed/smintJbYNXo',
+  },
 ];
 
 export default function UsefulPage() {

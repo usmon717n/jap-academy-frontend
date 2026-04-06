@@ -1,6 +1,79 @@
 import Link from 'next/link';
 
+type ElementCategory =
+  | 'nonmetal'
+  | 'alkali'
+  | 'alkaline'
+  | 'transition'
+  | 'metalloid'
+  | 'postTransition'
+  | 'halogen'
+  | 'nobleGas'
+  | 'lanthanoid'
+  | 'actinoid';
+
+type OrbitElement = {
+  symbol: string;
+  category: ElementCategory;
+};
+
+const CENTER_X = 150;
+const CENTER_Y = 190;
+
+const CATEGORY_COLORS: Record<ElementCategory, { fill: string; stroke: string; text: string }> = {
+  nonmetal: { fill: '#b8a4ff', stroke: '#8f77e8', text: '#2b1e62' },
+  alkali: { fill: '#ff6a6a', stroke: '#de3f3f', text: '#6f1a1a' },
+  alkaline: { fill: '#f2c313', stroke: '#cc9f06', text: '#5e4300' },
+  transition: { fill: '#8ad84a', stroke: '#63ae2d', text: '#1f4210' },
+  metalloid: { fill: '#88b0ff', stroke: '#5e87e5', text: '#1d3575' },
+  postTransition: { fill: '#59c8ff', stroke: '#28a7df', text: '#0d3d57' },
+  halogen: { fill: '#eea6ff', stroke: '#cf75e7', text: '#5f2373' },
+  nobleGas: { fill: '#ffa056', stroke: '#ea7f28', text: '#6a2f09' },
+  lanthanoid: { fill: '#d8bebc', stroke: '#b69693', text: '#533836' },
+  actinoid: { fill: '#c8cf74', stroke: '#a5ad4f', text: '#414814' },
+};
+
+const ORBIT_A_ELEMENTS: OrbitElement[] = [
+  { symbol: 'H', category: 'nonmetal' },
+  { symbol: 'Li', category: 'alkali' },
+  { symbol: 'Be', category: 'alkaline' },
+  { symbol: 'Fe', category: 'transition' },
+  { symbol: 'B', category: 'metalloid' },
+  { symbol: 'Al', category: 'postTransition' },
+  { symbol: 'Cl', category: 'halogen' },
+  { symbol: 'Ne', category: 'nobleGas' },
+  { symbol: 'La', category: 'lanthanoid' },
+  { symbol: 'U', category: 'actinoid' },
+];
+
+const ORBIT_B_ELEMENTS: OrbitElement[] = [
+  { symbol: 'C', category: 'nonmetal' },
+  { symbol: 'Na', category: 'alkali' },
+  { symbol: 'Mg', category: 'alkaline' },
+  { symbol: 'Cu', category: 'transition' },
+  { symbol: 'Si', category: 'metalloid' },
+  { symbol: 'Sn', category: 'postTransition' },
+  { symbol: 'F', category: 'halogen' },
+  { symbol: 'Ar', category: 'nobleGas' },
+  { symbol: 'Ce', category: 'lanthanoid' },
+  { symbol: 'Th', category: 'actinoid' },
+];
+
+function getOrbitPositions(elements: OrbitElement[], radius: number, phase = 0) {
+  return elements.map((item, index) => {
+    const angle = (index / elements.length) * Math.PI * 2 + phase;
+    return {
+      ...item,
+      x: CENTER_X + Math.cos(angle) * radius,
+      y: CENTER_Y + Math.sin(angle) * radius,
+    };
+  });
+}
+
 export default function HomePage() {
+  const orbitA = getOrbitPositions(ORBIT_A_ELEMENTS, 112, -Math.PI / 2);
+  const orbitB = getOrbitPositions(ORBIT_B_ELEMENTS, 146, -Math.PI / 2 + Math.PI / 10);
+
   return (
     <div>
       <section className="relative min-h-[90vh] flex items-center px-4">
@@ -38,42 +111,32 @@ export default function HomePage() {
               <g>
                 <g>
                   <animateTransform attributeName="transform" type="rotate" from="0 150 190" to="360 150 190" dur="18s" repeatCount="indefinite" />
-                  <g transform="translate(150 78)">
-                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">H</text>
-                  </g>
-                  <g transform="translate(245 220)">
-                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">O</text>
-                  </g>
-                  <g transform="translate(70 242)">
-                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">Na</text>
-                  </g>
-                  <g transform="translate(103 100)">
-                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">Cl</text>
-                  </g>
+                  {orbitA.map((element, index) => {
+                    const colors = CATEGORY_COLORS[element.category];
+                    return (
+                      <g key={`orbit-a-${element.symbol}-${index}`} transform={`translate(${element.x.toFixed(1)} ${element.y.toFixed(1)})`}>
+                        <circle r="14.2" fill={colors.fill} fillOpacity="0.95" stroke={colors.stroke} strokeWidth="1.2" />
+                        <text textAnchor="middle" dominantBaseline="middle" fontSize="9.2" fontWeight="700" fill={colors.text}>
+                          {element.symbol}
+                        </text>
+                      </g>
+                    );
+                  })}
                 </g>
 
                 <g>
                   <animateTransform attributeName="transform" type="rotate" from="360 150 190" to="0 150 190" dur="24s" repeatCount="indefinite" />
-                  <g transform="translate(150 44)">
-                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">C</text>
-                  </g>
-                  <g transform="translate(278 188)">
-                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">N</text>
-                  </g>
-                  <g transform="translate(150 336)">
-                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">K</text>
-                  </g>
-                  <g transform="translate(22 188)">
-                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
-                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">Ca</text>
-                  </g>
+                  {orbitB.map((element, index) => {
+                    const colors = CATEGORY_COLORS[element.category];
+                    return (
+                      <g key={`orbit-b-${element.symbol}-${index}`} transform={`translate(${element.x.toFixed(1)} ${element.y.toFixed(1)})`}>
+                        <circle r="14.2" fill={colors.fill} fillOpacity="0.95" stroke={colors.stroke} strokeWidth="1.2" />
+                        <text textAnchor="middle" dominantBaseline="middle" fontSize="9.2" fontWeight="700" fill={colors.text}>
+                          {element.symbol}
+                        </text>
+                      </g>
+                    );
+                  })}
                 </g>
               </g>
 
