@@ -26,6 +26,57 @@ export default function HomePage() {
           <div className="flex-1 flex justify-center">
             <svg viewBox="0 0 300 380" width="280" height="360" style={{ filter: 'drop-shadow(0 20px 40px rgba(234,88,12,0.12))' }}>
               <defs><linearGradient id="lG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#fb923c" stopOpacity="0.6"/><stop offset="100%" stopColor="#ea580c" stopOpacity="0.85"/></linearGradient><linearGradient id="fG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fff7ed" stopOpacity="0.8"/><stop offset="100%" stopColor="#ffedd5" stopOpacity="0.4"/></linearGradient></defs>
+              <g opacity="0.5">
+                <circle cx="150" cy="190" r="112" fill="none" stroke="#fdba74" strokeWidth="1.1" strokeDasharray="4 10">
+                  <animate attributeName="stroke-dashoffset" values="0;-70" dur="12s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="150" cy="190" r="146" fill="none" stroke="#fb923c" strokeWidth="0.9" strokeOpacity="0.7" strokeDasharray="3 12">
+                  <animate attributeName="stroke-dashoffset" values="0;80" dur="16s" repeatCount="indefinite" />
+                </circle>
+              </g>
+
+              <g>
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" from="0 150 190" to="360 150 190" dur="18s" repeatCount="indefinite" />
+                  <g transform="translate(150 78)">
+                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">H</text>
+                  </g>
+                  <g transform="translate(245 220)">
+                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">O</text>
+                  </g>
+                  <g transform="translate(70 242)">
+                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">Na</text>
+                  </g>
+                  <g transform="translate(103 100)">
+                    <circle r="14" fill="rgba(255,247,237,0.96)" stroke="#fb923c" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#c2410c">Cl</text>
+                  </g>
+                </g>
+
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" from="360 150 190" to="0 150 190" dur="24s" repeatCount="indefinite" />
+                  <g transform="translate(150 44)">
+                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">C</text>
+                  </g>
+                  <g transform="translate(278 188)">
+                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">N</text>
+                  </g>
+                  <g transform="translate(150 336)">
+                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">K</text>
+                  </g>
+                  <g transform="translate(22 188)">
+                    <circle r="15" fill="rgba(255,251,245,0.98)" stroke="#f59e0b" strokeWidth="1.2" />
+                    <text textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="700" fill="#b45309">Ca</text>
+                  </g>
+                </g>
+              </g>
+
               <path d="M110 60V160L40 300C35 315 45 330 60 330H240C255 330 265 315 260 300L190 160V60" fill="url(#fG)" stroke="#ea580c" strokeWidth="1.5" strokeOpacity="0.3"/>
               <rect x="110" y="30" width="80" height="30" rx="4" fill="none" stroke="#ea580c" strokeWidth="1.5" strokeOpacity="0.3"/>
               <path d="M65 250 Q110 235 150 245 Q190 255 235 240 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z" fill="url(#lG)"><animate attributeName="d" dur="4s" repeatCount="indefinite" values="M65 250 Q110 235 150 245 Q190 255 235 240 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z;M65 245 Q100 258 150 248 Q200 238 235 248 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z;M65 250 Q110 235 150 245 Q190 255 235 240 L255 300C260 312 252 325 240 325H60C48 325 40 312 45 300Z"/></path>
