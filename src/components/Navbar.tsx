@@ -10,6 +10,12 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { locale, setLocale, t, localeMeta } = useLanguage();
+  const compactLocaleLabel: Record<Locale, string> = {
+    uz: "O'Z",
+    uzCyrl: 'ЎЗ',
+    ru: 'RU',
+    en: 'EN',
+  };
 
   const navItems = [
     { label: t.navbar.home, href: '/' },
@@ -41,21 +47,6 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-2 mr-2">
-            <span className="text-[11px] font-semibold text-stone-500">{t.navbar.language}</span>
-            <select
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as Locale)}
-              className="h-9 rounded-xl px-2.5 text-xs font-semibold text-stone-700 bg-white/65 border border-white/70 outline-none hover:border-orange-300 focus:border-orange-400"
-            >
-              {LOCALES.map((item) => (
-                <option key={item} value={item}>
-                  {localeMeta[item].label}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div className="hidden md:flex items-center gap-0.5 rounded-full p-1" style={{
             background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             border: '1px solid rgba(255,255,255,0.45)', boxShadow: '0 1px 0 rgba(255,255,255,0.4) inset, 0 2px 8px rgba(0,0,0,0.03)',
@@ -68,7 +59,65 @@ export default function Navbar() {
             ))}
           </div>
 
-          <Link href="/contact" className="hidden sm:inline-flex btn-primary px-6 py-2.5 rounded-full text-white text-xs font-bold">
+          <div className="hidden md:flex items-center gap-2">
+            <div
+              className="relative"
+              style={{
+                background: 'rgba(255,255,255,0.5)',
+                border: '1px solid rgba(255,255,255,0.7)',
+                borderRadius: '9999px',
+              }}
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#78716c"
+                strokeWidth="2"
+                strokeLinecap="round"
+                style={{ position: 'absolute', left: 10, top: 9, pointerEvents: 'none' }}
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 0 1 0 20" />
+                <path d="M12 2a15.3 15.3 0 0 0 0 20" />
+              </svg>
+              <select
+                aria-label={t.navbar.language}
+                value={locale}
+                onChange={(event) => setLocale(event.target.value as Locale)}
+                className="h-8 pl-8 pr-7 rounded-full text-[11px] font-bold tracking-wide text-stone-700 bg-transparent border-0 outline-none appearance-none cursor-pointer"
+              >
+                {LOCALES.map((item) => (
+                  <option key={item} value={item}>
+                    {compactLocaleLabel[item]}
+                  </option>
+                ))}
+              </select>
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#78716c"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ position: 'absolute', right: 9, top: 10, pointerEvents: 'none' }}
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </div>
+
+            <Link href="/contact" className="btn-primary px-6 py-2.5 rounded-full text-white text-xs font-bold">
+              {t.navbar.enroll}
+            </Link>
+          </div>
+
+          <Link href="/contact" className="hidden sm:inline-flex md:hidden btn-primary px-6 py-2.5 rounded-full text-white text-xs font-bold">
             {t.navbar.enroll}
           </Link>
 
