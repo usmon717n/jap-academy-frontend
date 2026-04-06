@@ -15,7 +15,7 @@ const students = [
 
 export default function AboutPage() {
   return (
-    <div className="px-4 py-16 max-w-6xl mx-auto">
+    <div className="px-4 py-12 md:py-16 max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>BIZ HAQIMIZDA</div>
         <h1 className="text-3xl md:text-4xl font-black tracking-tight">JAP <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Academy</span></h1>
@@ -28,7 +28,7 @@ export default function AboutPage() {
         <div className="relative overflow-hidden rounded-2xl" style={{ background:'rgba(255,255,255,0.3)',border:'1px solid rgba(255,255,255,0.4)' }}>
           <div className="flex gap-5 py-6 px-4 animate-scroll-left">
             {[...results,...results,...results].map((r, i) => (
-              <div key={i} className="flex-shrink-0 w-72 h-48 rounded-xl overflow-hidden shadow-lg" style={{ boxShadow:'0 8px 25px rgba(0,0,0,0.08)' }}>
+              <div key={i} className="flex-shrink-0 w-56 h-36 sm:w-64 sm:h-44 md:w-72 md:h-48 rounded-xl overflow-hidden shadow-lg" style={{ boxShadow:'0 8px 25px rgba(0,0,0,0.08)' }}>
                 <img src={r.image} alt={r.alt} className="w-full h-full object-cover" />
               </div>
             ))}
@@ -54,7 +54,7 @@ export default function AboutPage() {
 
       {/* About text */}
       <div className="max-w-3xl mx-auto space-y-5">
-        <div className="p-8 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
+        <div className="p-6 md:p-8 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
           <h2 className="text-lg font-extrabold mb-3 text-orange-700">Bizning maqsadimiz</h2>
           <p className="text-sm text-stone-600 leading-relaxed">
             JAP Academy kimyo fanini zamonaviy usulda o&apos;rgatishga ixtisoslashgan o&apos;quv markaz.
@@ -63,7 +63,7 @@ export default function AboutPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {[{i:'🎓',t:'Tajribali o\'qituvchilar',d:'5 yildan ortiq tajribaga ega'},{i:'📊',t:'Yuqori natijalar',d:'95% a\'lo natija'},{i:'👥',t:'Kichik guruhlar',d:'8-12 o\'quvchi'},{i:'🏠',t:'Qulay joylashuv',d:'Metro yaqinida'}].map((c,i)=>(
-            <div key={i} className="p-6 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
+            <div key={i} className="p-5 md:p-6 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
               <div className="text-2xl mb-2">{c.i}</div>
               <div className="text-sm font-extrabold mb-1">{c.t}</div>
               <div className="text-xs text-stone-500">{c.d}</div>

@@ -76,28 +76,28 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="relative min-h-[90vh] flex items-center px-4">
-        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center gap-8">
-          <div className="flex-1 max-w-xl">
-            <div className="flex gap-1.5 mb-6">
+      <section className="relative min-h-[78vh] md:min-h-[90vh] flex items-center px-4 py-8 md:py-0">
+        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center gap-8 md:gap-10">
+          <div className="flex-1 max-w-xl text-center md:text-left">
+            <div className="flex gap-1.5 mb-6 justify-center md:justify-start">
               <div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600" />
               <div className="w-5 h-1.5 rounded-full bg-orange-400" />
               <div className="w-2.5 h-1.5 rounded-full bg-amber-400" />
             </div>
-            <h1 className="text-4xl md:text-[52px] font-black tracking-tight leading-[1.06] mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-[52px] font-black tracking-tight leading-[1.06] mb-6">
               Kimyo fanini<br />
               <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 bg-clip-text text-transparent">zamonaviy</span>{' '}usulda<br />o&apos;rganing
             </h1>
-            <p className="text-base md:text-lg text-stone-500 leading-relaxed max-w-md mb-8">
+            <p className="text-base md:text-lg text-stone-500 leading-relaxed max-w-md mx-auto md:mx-0 mb-8">
               JAP Academy — kimyo faniga ixtisoslashgan o&apos;quv markaz. Professional o&apos;qituvchilar, zamonaviy dastur va individual yondashuv.
             </p>
-            <div className="flex gap-3 flex-wrap">
-              <Link href="/contact" className="btn-primary px-8 py-4 rounded-full text-white text-sm font-bold flex items-center gap-2">Kursga yozilish <span>&rarr;</span></Link>
-              <Link href="/about" className="btn-glass px-8 py-4 rounded-full text-sm font-bold text-stone-700">Batafsil</Link>
+            <div className="flex gap-3 flex-wrap justify-center md:justify-start">
+              <Link href="/contact" className="btn-primary px-8 py-4 rounded-full text-white text-sm font-bold flex items-center justify-center gap-2 w-full sm:w-auto">Kursga yozilish <span>&rarr;</span></Link>
+              <Link href="/about" className="btn-glass px-8 py-4 rounded-full text-sm font-bold text-stone-700 w-full sm:w-auto text-center">Batafsil</Link>
             </div>
           </div>
           <div className="flex-1 flex justify-center">
-            <svg viewBox="0 0 300 380" width="280" height="360" style={{ filter: 'drop-shadow(0 20px 40px rgba(234,88,12,0.12))' }}>
+            <svg viewBox="0 0 300 380" className="w-[230px] sm:w-[260px] md:w-[280px] h-auto" style={{ filter: 'drop-shadow(0 20px 40px rgba(234,88,12,0.12))' }}>
               <defs><linearGradient id="lG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#fb923c" stopOpacity="0.6"/><stop offset="100%" stopColor="#ea580c" stopOpacity="0.85"/></linearGradient><linearGradient id="fG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fff7ed" stopOpacity="0.8"/><stop offset="100%" stopColor="#ffedd5" stopOpacity="0.4"/></linearGradient></defs>
               <g opacity="0.5">
                 <circle cx="150" cy="190" r="112" fill="none" stroke="#fdba74" strokeWidth="1.1" strokeDasharray="4 10">
@@ -153,9 +153,9 @@ export default function HomePage() {
 
       <section className="relative z-10 px-4 -mt-4">
         <div className="max-w-4xl mx-auto">
-          <div className="flex rounded-2xl overflow-hidden" style={{ background:'rgba(255,255,255,0.45)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.5)',boxShadow:'0 8px 32px rgba(0,0,0,0.06)' }}>
+          <div className="grid grid-cols-2 md:flex rounded-2xl overflow-hidden" style={{ background:'rgba(255,255,255,0.45)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.5)',boxShadow:'0 8px 32px rgba(0,0,0,0.06)' }}>
             {[{n:'5+',l:'YILLIK TAJRIBA',c:'text-orange-600'},{n:'200+',l:'O\'QUVCHILAR',c:'text-emerald-600'},{n:'10+',l:'O\'QITUVCHILAR',c:'text-orange-500'},{n:'95%',l:'NATIJA',c:'text-blue-600'}].map((s,i)=>(
-              <div key={i} className={`flex-1 text-center py-7 ${i>0?'border-l border-white/40':''}`}>
+              <div key={i} className={`md:flex-1 text-center py-6 md:py-7 ${i>0?'md:border-l border-white/40':''} ${i>1?'border-t md:border-t-0 border-white/40':''}`}>
                 <div className={`text-xl md:text-2xl font-black ${s.c}`}>{s.n}</div>
                 <div className="text-[9px] text-stone-400 mt-1 tracking-widest font-medium">{s.l}</div>
               </div>
@@ -184,10 +184,10 @@ export default function HomePage() {
 
       <section className="px-4 pb-20">
         <div className="max-w-4xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden p-12 md:p-16 text-center" style={{background:'linear-gradient(135deg,rgba(234,88,12,0.12),rgba(251,146,60,0.08),rgba(245,158,11,0.1))',backdropFilter:'blur(20px)',border:'1px solid rgba(234,88,12,0.15)'}}>
+          <div className="relative rounded-3xl overflow-hidden p-8 sm:p-10 md:p-16 text-center" style={{background:'linear-gradient(135deg,rgba(234,88,12,0.12),rgba(251,146,60,0.08),rgba(245,158,11,0.1))',backdropFilter:'blur(20px)',border:'1px solid rgba(234,88,12,0.15)'}}>
             <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">Hoziroq kursga yoziling!</h3>
             <p className="text-sm text-stone-500 mb-8 max-w-md mx-auto">Professional o&apos;qituvchilar jamoasi sizni kutmoqda</p>
-            <Link href="/contact" className="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm">Yozilish &rarr;</Link>
+            <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm w-full sm:w-auto">Yozilish &rarr;</Link>
           </div>
         </div>
       </section>

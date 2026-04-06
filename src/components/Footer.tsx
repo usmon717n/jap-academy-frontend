@@ -8,10 +8,10 @@ export default function Footer() {
     }}>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-0.5 bg-gradient-to-r from-transparent via-orange-400/40 to-transparent" />
       <div className="relative max-w-6xl mx-auto px-4 pt-14 pb-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-10">
           {/* Logo + socials */}
-          <div>
-            <div className="flex items-center gap-2.5 mb-4">
+          <div className="text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-2.5 mb-4">
               <div className="w-10 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex flex-col items-center justify-center text-white shadow-lg shadow-orange-500/20">
                 <span className="text-[5px] opacity-60">001</span><span className="text-sm font-extrabold">Jp</span>
               </div>
@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-xs text-stone-500 leading-relaxed mb-4">Kimyo faniga ixtisoslashgan zamonaviy o&apos;quv markaz.</p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center sm:justify-start">
               <a href="https://t.me/japacademy" target="_blank" rel="noopener" className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg" style={{ background: 'rgba(0,136,204,0.1)' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.53 8.15l-1.83 8.63c-.14.62-.5.77-.99.48l-2.75-2.03-1.33 1.27c-.14.14-.27.27-.56.27l.2-2.82 5.1-4.62c.22-.2-.05-.31-.34-.12L8.86 13.4l-2.72-.85c-.59-.19-.6-.59.12-.87l10.62-4.1c.5-.18.93.12.65.57z"/></svg>
               </a>
@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
 
           {/* Pages */}
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">SAHIFALAR</h4>
             {[{ l:'Asosiy',h:'/' },{ l:'Biz haqimizda',h:'/about' },{ l:'Foydali',h:'/useful' },{ l:'Aloqa',h:'/contact' }].map(x=>(
               <Link key={x.h} href={x.h} className="block text-xs text-stone-500 mb-2.5 hover:text-orange-600 transition-colors">{x.l}</Link>
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">ALOQA</h4>
             <p className="text-xs text-stone-500 mb-2">+998 90 123 45 67</p>
             <p className="text-xs text-stone-500 mb-2">info@japacademy.uz</p>
@@ -51,19 +51,19 @@ export default function Footer() {
           </div>
 
           {/* Map */}
-          <div>
+          <div className="sm:col-span-2 md:col-span-1">
             <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">MANZIL</h4>
             <div className="rounded-xl overflow-hidden border border-white/40" style={{ boxShadow: '0 4px 15px rgba(0,0,0,0.06)' }}>
               <iframe
                 src="https://maps.google.com/maps?q=41.282271,69.210930&z=16&output=embed"
-                width="100%" height="140" style={{ border: 0 }} allowFullScreen loading="lazy"
+                width="100%" height="160" style={{ border: 0 }} allowFullScreen loading="lazy"
               />
             </div>
           </div>
         </div>
 
         <div className="border-t border-orange-200/30 pt-5 text-center">
-          <span className="text-[10px] text-stone-400 tracking-wider">JAP ACADEMY &copy; 2026. BARCHA HUQUQLAR HIMOYALANGAN</span>
+          <span className="block text-[10px] text-stone-400 tracking-wider px-2">JAP ACADEMY &copy; 2026. BARCHA HUQUQLAR HIMOYALANGAN</span>
           <div className="mt-4 flex flex-col items-center gap-1.5">
             <a
               href="https://t.me/usmonUmaraliyev"
