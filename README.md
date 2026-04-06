@@ -6,7 +6,7 @@
 # 1. Install dependencies
 npm install
 
-# 2. Copy env and configure API URL
+# 2. Copy env and configure variables
 cp .env.example .env.local
 
 # 3. Start dev server
@@ -19,9 +19,24 @@ Frontend runs on `http://localhost:3000`
 
 1. Push this repo to GitHub
 2. Import project on Vercel (vercel.com/new)
-3. Set environment variable:
-   - `NEXT_PUBLIC_API_URL` — your Railway backend URL (e.g. `https://jap-api.up.railway.app/api`)
+3. Set environment variables:
+   - `NEXT_PUBLIC_API_URL` — optional Railway backend URL (if used)
+   - `TELEGRAM_BOT_TOKEN` — BotFather orqali olingan bot token
+   - `TELEGRAM_CHAT_ID` — xabar tushadigan chat/group ID
 4. Deploy — Vercel auto-detects Next.js
+
+## Telegram Contact Integration
+
+`/contact` sahifadagi forma `POST /api/contact` orqali Telegram botga xabar yuboradi.
+
+1. Telegram'da `@BotFather` orqali bot yarating va token oling.
+2. Xabar tushadigan chat ID ni aniqlang:
+   - botga private chatda yozing yoki botni guruhga qo'shing
+   - `https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates` orqali `chat.id` ni toping
+3. `.env.local` ichida quyidagilarni to'ldiring:
+   - `TELEGRAM_BOT_TOKEN=...`
+   - `TELEGRAM_CHAT_ID=...`
+4. Dev yoki productionda forma yuborib tekshiring.
 
 ## Pages
 

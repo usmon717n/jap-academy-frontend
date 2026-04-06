@@ -1,15 +1,21 @@
-import Link from 'next/link';
+import ContactForm from '@/components/ContactForm';
 
 export default function ContactPage() {
   return (
-    <div className="px-4 py-16 max-w-4xl mx-auto">
+    <div className="px-4 py-16 max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>ALOQA</div>
         <h1 className="text-3xl md:text-4xl font-black">Kursga <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">yozilish</span></h1>
         <p className="text-sm text-stone-500 mt-3">Biz bilan bog&apos;laning</p>
       </div>
 
-      <div className="max-w-lg mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="p-8 rounded-2xl h-fit" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
+          <h2 className="text-lg font-extrabold mb-2">Ariza qoldiring</h2>
+          <p className="text-sm text-stone-500 mb-6">Ma&apos;lumotlaringiz Telegram botimizga yuboriladi.</p>
+          <ContactForm />
+        </div>
+
         <div className="p-8 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
 
           <div className="text-center mb-8">
