@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { AuthProvider } from '@/lib/auth-context';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -20,11 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="blob blob-4" />
           <div className="blob blob-5" />
         </div>
-        <AuthProvider>
-          <Navbar />
-          <main className="flex-1 page-content animate-fade-slide">{children}</main>
-          <Footer />
-        </AuthProvider>
+        <Navbar />
+        <main className="flex-1 page-content animate-fade-slide">{children}</main>
+        <Footer />
       </body>
     </html>
   );
