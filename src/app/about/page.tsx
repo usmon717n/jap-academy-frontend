@@ -1,3 +1,7 @@
+'use client';
+
+import { useLanguage } from '@/context/LanguageContext';
+
 const results = [
   { image: 'https://placehold.co/600x400/ea580c/white?text=Natija+1', alt: 'Natija 1' },
   { image: 'https://placehold.co/600x400/f97316/white?text=Natija+2', alt: 'Natija 2' },
@@ -5,26 +9,28 @@ const results = [
   { image: 'https://placehold.co/600x400/fdba74/white?text=Natija+4', alt: 'Natija 4' },
 ];
 
-const students = [
-  { name: 'Aziza Karimova', desc: 'DTM 189 ball. Kimyo fanidan eng yuqori natija.', image: 'https://placehold.co/200x200/ea580c/white?text=AK' },
-  { name: 'Jasur Toshmatov', desc: 'Olimpiada g\'olibi. Respublika 1-o\'rin.', image: 'https://placehold.co/200x200/f97316/white?text=JT' },
-  { name: 'Malika Rahimova', desc: 'Toshkent Tibbiyot — grant asosida.', image: 'https://placehold.co/200x200/fb923c/white?text=MR' },
-  { name: 'Bobur Aliyev', desc: 'Xalqaro olimpiada ishtirokchisi.', image: 'https://placehold.co/200x200/fdba74/white?text=BA' },
-  { name: 'Nilufar Saidova', desc: 'Farmatsevtika fakulteti talabasi.', image: 'https://placehold.co/200x200/c2410c/white?text=NS' },
+const studentImages = [
+  'https://placehold.co/200x200/ea580c/white?text=AK',
+  'https://placehold.co/200x200/f97316/white?text=JT',
+  'https://placehold.co/200x200/fb923c/white?text=MR',
+  'https://placehold.co/200x200/fdba74/white?text=BA',
+  'https://placehold.co/200x200/c2410c/white?text=NS',
 ];
 
 export default function AboutPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="px-4 py-12 md:py-16 max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>BIZ HAQIMIZDA</div>
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight">JAP <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Academy</span></h1>
-        <p className="text-sm text-stone-500 mt-3 max-w-lg mx-auto">Kimyo faniga ixtisoslashgan zamonaviy o&apos;quv markaz.</p>
+        <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>{t.about.badge}</div>
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight">{t.about.titleMain} <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">{t.about.titleAccent}</span></h1>
+        <p className="text-sm text-stone-500 mt-3 max-w-lg mx-auto">{t.about.subtitle}</p>
       </div>
 
       {/* Results — auto-scrolling slider */}
       <div className="mb-16">
-        <h2 className="text-lg font-extrabold mb-6 text-center">O&apos;quvchilarimiz natijalari</h2>
+        <h2 className="text-lg font-extrabold mb-6 text-center">{t.about.resultsTitle}</h2>
         <div className="relative overflow-hidden rounded-2xl" style={{ background:'rgba(255,255,255,0.3)',border:'1px solid rgba(255,255,255,0.4)' }}>
           <div className="flex gap-5 py-6 px-4 animate-scroll-left">
             {[...results,...results,...results].map((r, i) => (
@@ -38,12 +44,12 @@ export default function AboutPage() {
 
       {/* Student cards — 5 in a row */}
       <div className="mb-16">
-        <h2 className="text-lg font-extrabold mb-6 text-center">Eng yaxshi o&apos;quvchilarimiz</h2>
+        <h2 className="text-lg font-extrabold mb-6 text-center">{t.about.bestStudentsTitle}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          {students.map((s, i) => (
+          {t.about.students.map((s, i) => (
             <div key={i} className="card-hover p-5 rounded-2xl text-center group" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
               <div className="w-16 h-16 rounded-full mx-auto mb-3 overflow-hidden ring-3 ring-orange-200/50 group-hover:ring-orange-400/50 transition-all duration-300">
-                <img src={s.image} alt={s.name} className="w-full h-full object-cover" />
+                <img src={studentImages[i]} alt={s.name} className="w-full h-full object-cover" />
               </div>
               <div className="text-xs font-extrabold text-stone-800 mb-1">{s.name}</div>
               <div className="text-[10px] text-stone-500 leading-relaxed">{s.desc}</div>
@@ -55,14 +61,13 @@ export default function AboutPage() {
       {/* About text */}
       <div className="max-w-3xl mx-auto space-y-5">
         <div className="p-6 md:p-8 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
-          <h2 className="text-lg font-extrabold mb-3 text-orange-700">Bizning maqsadimiz</h2>
+          <h2 className="text-lg font-extrabold mb-3 text-orange-700">{t.about.missionTitle}</h2>
           <p className="text-sm text-stone-600 leading-relaxed">
-            JAP Academy kimyo fanini zamonaviy usulda o&apos;rgatishga ixtisoslashgan o&apos;quv markaz.
-            Bizning maqsadimiz — har bir o&apos;quvchiga kimyo fanini tushunarli va qiziqarli qilib yetkazish.
+            {t.about.missionText}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {[{i:'🎓',t:'Tajribali o\'qituvchilar',d:'5 yildan ortiq tajribaga ega'},{i:'📊',t:'Yuqori natijalar',d:'95% a\'lo natija'},{i:'👥',t:'Kichik guruhlar',d:'8-12 o\'quvchi'},{i:'🏠',t:'Qulay joylashuv',d:'Metro yaqinida'}].map((c,i)=>(
+          {t.about.cards.map((c,i)=>(
             <div key={i} className="p-5 md:p-6 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
               <div className="text-2xl mb-2">{c.i}</div>
               <div className="text-sm font-extrabold mb-1">{c.t}</div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 type FormState = {
   name: string;
@@ -20,6 +21,7 @@ const INITIAL_FORM: FormState = {
 };
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>(null);
@@ -38,19 +40,13 @@ export default function ContactForm() {
         body: JSON.stringify(form),
       });
 
-      const data = await response.json().catch(() => ({}));
-
       if (!response.ok) {
-        throw new Error(
-          typeof data.error === 'string'
-            ? data.error
-            : 'Xabar yuborishda xatolik yuz berdi.',
-        );
+        throw new Error(t.form.errorDefault);
       }
 
       setSubmitState({
         type: 'success',
-        message: 'So\'rovingiz yuborildi. Tez orada siz bilan bog\'lanamiz.',
+        message: t.form.success,
       });
       setForm(INITIAL_FORM);
     } catch (error) {
@@ -59,7 +55,7 @@ export default function ContactForm() {
         message:
           error instanceof Error
             ? error.message
-            : 'Xabar yuborishda xatolik yuz berdi.',
+            : t.form.errorDefault,
       });
     } finally {
       setIsSubmitting(false);
@@ -70,7 +66,7 @@ export default function ContactForm() {
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name" className="block text-xs font-bold text-stone-600 mb-2">
-          Ism familiya
+          {t.form.nameLabel}
         </label>
         <input
           id="name"
@@ -83,13 +79,13 @@ export default function ContactForm() {
             setForm((prev) => ({ ...prev, name: event.target.value }))
           }
           className="w-full px-4 py-3 rounded-xl text-sm text-stone-700 bg-white/80 border border-orange-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all"
-          placeholder="Masalan: Ali Valiyev"
+          placeholder={t.form.namePlaceholder}
         />
       </div>
 
       <div>
         <label htmlFor="phone" className="block text-xs font-bold text-stone-600 mb-2">
-          Telefon raqam
+          {t.form.phoneLabel}
         </label>
         <input
           id="phone"
@@ -102,13 +98,13 @@ export default function ContactForm() {
             setForm((prev) => ({ ...prev, phone: event.target.value }))
           }
           className="w-full px-4 py-3 rounded-xl text-sm text-stone-700 bg-white/80 border border-orange-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all"
-          placeholder="+998 90 123 45 67"
+          placeholder={t.form.phonePlaceholder}
         />
       </div>
 
       <div>
         <label htmlFor="message" className="block text-xs font-bold text-stone-600 mb-2">
-          Qo&apos;shimcha xabar
+          {t.form.messageLabel}
         </label>
         <textarea
           id="message"
@@ -120,7 +116,7 @@ export default function ContactForm() {
             setForm((prev) => ({ ...prev, message: event.target.value }))
           }
           className="w-full px-4 py-3 rounded-xl text-sm text-stone-700 bg-white/80 border border-orange-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all resize-none"
-          placeholder="Qaysi guruhga yozilmoqchisiz yoki savolingizni yozing"
+          placeholder={t.form.messagePlaceholder}
         />
       </div>
 
@@ -129,7 +125,7 @@ export default function ContactForm() {
         disabled={isSubmitting}
         className="btn-primary w-full px-6 py-3 rounded-xl text-sm font-bold text-white disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? 'Yuborilmoqda...' : 'So\'rov yuborish'}
+        {isSubmitting ? t.form.sending : t.form.submit}
       </button>
 
       {submitState && (

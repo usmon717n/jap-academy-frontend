@@ -3,16 +3,19 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { LOCALES, Locale } from '@/i18n/messages';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { locale, setLocale, t, localeMeta } = useLanguage();
 
   const navItems = [
-    { label: 'Asosiy', href: '/' },
-    { label: 'Biz haqimizda', href: '/about' },
-    { label: 'Foydali', href: '/useful' },
-    { label: 'Aloqa', href: '/contact' },
+    { label: t.navbar.home, href: '/' },
+    { label: t.navbar.about, href: '/about' },
+    { label: t.navbar.useful, href: '/useful' },
+    { label: t.navbar.contact, href: '/contact' },
   ];
 
   useEffect(() => {
@@ -34,9 +37,24 @@ export default function Navbar() {
             </div>
             <div>
               <div className="text-sm sm:text-base font-black tracking-tight bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">JAP ACADEMY</div>
-              <div className="hidden sm:block text-[8px] tracking-[3px] text-stone-400 font-semibold">KIMYO O&apos;QUV MARKAZI</div>
+              <div className="hidden sm:block text-[8px] tracking-[3px] text-stone-400 font-semibold">{t.navbar.brandTagline}</div>
             </div>
           </Link>
+
+          <div className="hidden md:flex items-center gap-2 mr-2">
+            <span className="text-[11px] font-semibold text-stone-500">{t.navbar.language}</span>
+            <select
+              value={locale}
+              onChange={(event) => setLocale(event.target.value as Locale)}
+              className="h-9 rounded-xl px-2.5 text-xs font-semibold text-stone-700 bg-white/65 border border-white/70 outline-none hover:border-orange-300 focus:border-orange-400"
+            >
+              {LOCALES.map((item) => (
+                <option key={item} value={item}>
+                  {localeMeta[item].label}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="hidden md:flex items-center gap-0.5 rounded-full p-1" style={{
             background: 'rgba(255,255,255,0.35)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
@@ -51,13 +69,13 @@ export default function Navbar() {
           </div>
 
           <Link href="/contact" className="hidden sm:inline-flex btn-primary px-6 py-2.5 rounded-full text-white text-xs font-bold">
-            Kursga yozilish
+            {t.navbar.enroll}
           </Link>
 
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            aria-label="Menyuni ochish"
+            aria-label={t.navbar.menuAria}
             className="md:hidden w-10 h-10 rounded-xl flex items-center justify-center text-stone-700 hover:text-orange-600 transition-colors"
             style={{ background: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.6)' }}
           >
@@ -89,6 +107,20 @@ export default function Navbar() {
             }}
           >
             <div className="flex flex-col gap-1.5">
+              <div className="px-1 mb-1">
+                <label className="block text-[11px] font-semibold text-stone-500 mb-1.5">{t.navbar.language}</label>
+                <select
+                  value={locale}
+                  onChange={(event) => setLocale(event.target.value as Locale)}
+                  className="w-full h-10 rounded-xl px-3 text-sm font-semibold text-stone-700 bg-white/75 border border-white/80 outline-none focus:border-orange-400"
+                >
+                  {LOCALES.map((item) => (
+                    <option key={item} value={item}>
+                      {localeMeta[item].label}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -103,7 +135,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link href="/contact" className="btn-primary mt-1 px-4 py-3 rounded-xl text-white text-sm font-bold text-center">
-                Kursga yozilish
+                {t.navbar.enroll}
               </Link>
             </div>
           </div>

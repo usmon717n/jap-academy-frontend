@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 type ElementCategory =
   | 'nonmetal'
@@ -71,6 +74,7 @@ function getOrbitPositions(elements: OrbitElement[], radius: number, phase = 0) 
 }
 
 export default function HomePage() {
+  const { t } = useLanguage();
   const orbitA = getOrbitPositions(ORBIT_A_ELEMENTS, 112, -Math.PI / 2);
   const orbitB = getOrbitPositions(ORBIT_B_ELEMENTS, 146, -Math.PI / 2 + Math.PI / 10);
 
@@ -85,15 +89,16 @@ export default function HomePage() {
               <div className="w-2.5 h-1.5 rounded-full bg-amber-400" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-[52px] font-black tracking-tight leading-[1.06] mb-6">
-              Kimyo fanini<br />
-              <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 bg-clip-text text-transparent">zamonaviy</span>{' '}usulda<br />o&apos;rganing
+              {t.home.titleFirst}<br />
+              <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 bg-clip-text text-transparent">{t.home.titleAccent}</span>{' '}
+              {t.home.titleThird}
             </h1>
             <p className="text-base md:text-lg text-stone-500 leading-relaxed max-w-md mx-auto md:mx-0 mb-8">
-              JAP Academy — kimyo faniga ixtisoslashgan o&apos;quv markaz. Professional o&apos;qituvchilar, zamonaviy dastur va individual yondashuv.
+              {t.home.description}
             </p>
             <div className="flex gap-3 flex-wrap justify-center md:justify-start">
-              <Link href="/contact" className="btn-primary px-8 py-4 rounded-full text-white text-sm font-bold flex items-center justify-center gap-2 w-full sm:w-auto">Kursga yozilish <span>&rarr;</span></Link>
-              <Link href="/about" className="btn-glass px-8 py-4 rounded-full text-sm font-bold text-stone-700 w-full sm:w-auto text-center">Batafsil</Link>
+              <Link href="/contact" className="btn-primary px-8 py-4 rounded-full text-white text-sm font-bold flex items-center justify-center gap-2 w-full sm:w-auto">{t.home.enroll} <span>&rarr;</span></Link>
+              <Link href="/about" className="btn-glass px-8 py-4 rounded-full text-sm font-bold text-stone-700 w-full sm:w-auto text-center">{t.home.details}</Link>
             </div>
           </div>
           <div className="flex-1 flex justify-center">
@@ -154,7 +159,7 @@ export default function HomePage() {
       <section className="relative z-10 px-4 -mt-4">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:flex rounded-2xl overflow-hidden" style={{ background:'rgba(255,255,255,0.45)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.5)',boxShadow:'0 8px 32px rgba(0,0,0,0.06)' }}>
-            {[{n:'5+',l:'YILLIK TAJRIBA',c:'text-orange-600'},{n:'200+',l:'O\'QUVCHILAR',c:'text-emerald-600'},{n:'10+',l:'O\'QITUVCHILAR',c:'text-orange-500'},{n:'95%',l:'NATIJA',c:'text-blue-600'}].map((s,i)=>(
+            {t.home.stats.map((s,i)=>(
               <div key={i} className={`md:flex-1 text-center py-6 md:py-7 ${i>0?'md:border-l border-white/40':''} ${i>1?'border-t md:border-t-0 border-white/40':''}`}>
                 <div className={`text-xl md:text-2xl font-black ${s.c}`}>{s.n}</div>
                 <div className="text-[9px] text-stone-400 mt-1 tracking-widest font-medium">{s.l}</div>
@@ -166,11 +171,11 @@ export default function HomePage() {
 
       <section className="px-4 py-20 max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>NIMA UCHUN BIZ</div>
-          <h2 className="text-2xl md:text-3xl font-black">Kimyoni <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">o&apos;rganishning</span> eng yaxshi yo&apos;li</h2>
+          <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>{t.home.whyBadge}</div>
+          <h2 className="text-2xl md:text-3xl font-black">{t.home.whyTitleBefore} <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">{t.home.whyTitleAccent}</span> {t.home.whyTitleAfter}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[{t:'Individual yondashuv',d:'Har bir o\'quvchiga alohida e\'tibor',i:'🎯',a:'#ea580c'},{t:'Professional jamoa',d:'Tajribali kimyo mutaxassislari',i:'👨‍🔬',a:'#2563eb'},{t:'Zamonaviy dastur',d:'Eng so\'nggi o\'quv dasturi',i:'📚',a:'#16a34a'},{t:'Yuqori natijalar',d:'95% o\'quvchilar a\'lo natija',i:'🏆',a:'#7c3aed'}].map((f,i)=>(
+          {t.home.whyItems.map((f,i)=>(
             <div key={i} className="card-hover p-6 rounded-2xl relative overflow-hidden group" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
               <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{background:`radial-gradient(circle at top right,${f.a}15,transparent 70%)`}}/>
               <div className="absolute top-0 left-6 right-6 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" style={{background:`linear-gradient(90deg,transparent,${f.a}40,transparent)`}}/>
@@ -185,9 +190,9 @@ export default function HomePage() {
       <section className="px-4 pb-20">
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden p-8 sm:p-10 md:p-16 text-center" style={{background:'linear-gradient(135deg,rgba(234,88,12,0.12),rgba(251,146,60,0.08),rgba(245,158,11,0.1))',backdropFilter:'blur(20px)',border:'1px solid rgba(234,88,12,0.15)'}}>
-            <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">Hoziroq kursga yoziling!</h3>
-            <p className="text-sm text-stone-500 mb-8 max-w-md mx-auto">Professional o&apos;qituvchilar jamoasi sizni kutmoqda</p>
-            <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm w-full sm:w-auto">Yozilish &rarr;</Link>
+            <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">{t.home.ctaTitle}</h3>
+            <p className="text-sm text-stone-500 mb-8 max-w-md mx-auto">{t.home.ctaDescription}</p>
+            <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm w-full sm:w-auto">{t.home.ctaButton} &rarr;</Link>
           </div>
         </div>
       </section>

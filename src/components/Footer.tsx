@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="relative mt-16 overflow-hidden" style={{
       background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
@@ -17,10 +22,10 @@ export default function Footer() {
               </div>
               <div>
                 <div className="text-sm font-extrabold text-stone-800">JAP ACADEMY</div>
-                <div className="text-[7px] tracking-widest text-stone-400">KIMYO O&apos;QUV MARKAZI</div>
+                <div className="text-[7px] tracking-widest text-stone-400">{t.navbar.brandTagline}</div>
               </div>
             </div>
-            <p className="text-xs text-stone-500 leading-relaxed mb-4">Kimyo faniga ixtisoslashgan zamonaviy o&apos;quv markaz.</p>
+            <p className="text-xs text-stone-500 leading-relaxed mb-4">{t.footer.description}</p>
             <div className="flex gap-3 justify-center sm:justify-start">
               <a href="https://t.me/japacademy" target="_blank" rel="noopener" className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg" style={{ background: 'rgba(0,136,204,0.1)' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.53 8.15l-1.83 8.63c-.14.62-.5.77-.99.48l-2.75-2.03-1.33 1.27c-.14.14-.27.27-.56.27l.2-2.82 5.1-4.62c.22-.2-.05-.31-.34-.12L8.86 13.4l-2.72-.85c-.59-.19-.6-.59.12-.87l10.62-4.1c.5-.18.93.12.65.57z"/></svg>
@@ -36,23 +41,23 @@ export default function Footer() {
 
           {/* Pages */}
           <div className="text-center sm:text-left">
-            <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">SAHIFALAR</h4>
-            {[{ l:'Asosiy',h:'/' },{ l:'Biz haqimizda',h:'/about' },{ l:'Foydali',h:'/useful' },{ l:'Aloqa',h:'/contact' }].map(x=>(
+            <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">{t.footer.pagesTitle}</h4>
+            {[{ l:t.navbar.home,h:'/' },{ l:t.navbar.about,h:'/about' },{ l:t.navbar.useful,h:'/useful' },{ l:t.navbar.contact,h:'/contact' }].map(x=>(
               <Link key={x.h} href={x.h} className="block text-xs text-stone-500 mb-2.5 hover:text-orange-600 transition-colors">{x.l}</Link>
             ))}
           </div>
 
           {/* Contact */}
           <div className="text-center sm:text-left">
-            <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">ALOQA</h4>
-            <p className="text-xs text-stone-500 mb-2">+998 90 123 45 67</p>
+            <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">{t.footer.contactTitle}</h4>
+            <p className="text-xs text-stone-500 mb-2">{t.contact.phoneNumber}</p>
             <p className="text-xs text-stone-500 mb-2">info@japacademy.uz</p>
-            <p className="text-xs text-stone-500">Toshkent, Chilonzor tumani</p>
+            <p className="text-xs text-stone-500">{t.contact.address}</p>
           </div>
 
           {/* Map */}
           <div className="sm:col-span-2 md:col-span-1">
-            <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">MANZIL</h4>
+            <h4 className="text-[10px] font-bold tracking-[3px] text-orange-600 mb-4">{t.footer.mapTitle}</h4>
             <div className="rounded-xl overflow-hidden border border-white/40" style={{ boxShadow: '0 4px 15px rgba(0,0,0,0.06)' }}>
               <iframe
                 src="https://maps.google.com/maps?q=41.282271,69.210930&z=16&output=embed"
@@ -63,7 +68,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-orange-200/30 pt-5 text-center">
-          <span className="block text-[10px] text-stone-400 tracking-wider px-2">JAP ACADEMY &copy; 2026. BARCHA HUQUQLAR HIMOYALANGAN</span>
+          <span className="block text-[10px] text-stone-400 tracking-wider px-2">{t.footer.copyright}</span>
           <div className="mt-4 flex flex-col items-center gap-1.5">
             <a
               href="https://t.me/usmonUmaraliyev"
@@ -74,9 +79,9 @@ export default function Footer() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="#0088cc" aria-hidden="true">
                 <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.53 8.15l-1.83 8.63c-.14.62-.5.77-.99.48l-2.75-2.03-1.33 1.27c-.14.14-.27.27-.56.27l.2-2.82 5.1-4.62c.22-.2-.05-.31-.34-.12L8.86 13.4l-2.72-.85c-.59-.19-.6-.59.12-.87l10.62-4.1c.5-.18.93.12.65.57z" />
               </svg>
-              <span>Developer</span>
+              <span>{t.footer.developer}</span>
             </a>
-            <p className="text-[10px] text-stone-400 tracking-wide">Made with ❤️ and a lot of coffe ☕</p>
+            <p className="text-[10px] text-stone-400 tracking-wide">{t.footer.madeWith}</p>
           </div>
         </div>
       </div>
