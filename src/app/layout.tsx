@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
           >
             <source src="/videos/hero-bg.mp4" type="video/mp4" />
           </video>
