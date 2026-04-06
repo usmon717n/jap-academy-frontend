@@ -499,4 +499,4 @@ export const messages = {
   },
 } as const;
 
-export type Messages = (typeof messages)['uz'];
+export type Messages = (typeof messages)[Locale];
