@@ -18,10 +18,26 @@ type ElementCategory =
 type OrbitElement = {
   symbol: string;
   category: ElementCategory;
+  atomicNumber: number;
+  atomicMass: string;
+  electronConfig: string;
+  name: string;
 };
 
 const CENTER_X = 150;
 const CENTER_Y = 190;
+const TILE_WIDTH = 30;
+const TILE_HEIGHT = 38;
+
+type OrbitNode = OrbitElement & {
+  x: number;
+  y: number;
+  tilt: number;
+  driftX: number;
+  driftY: number;
+  wobbleDuration: number;
+  tiltDuration: number;
+};
 
 const CATEGORY_COLORS: Record<ElementCategory, { fill: string; stroke: string; text: string }> = {
   nonmetal: { fill: '#b8a4ff', stroke: '#8f77e8', text: '#2b1e62' },
@@ -37,50 +53,117 @@ const CATEGORY_COLORS: Record<ElementCategory, { fill: string; stroke: string; t
 };
 
 const ORBIT_A_ELEMENTS: OrbitElement[] = [
-  { symbol: 'H', category: 'nonmetal' },
-  { symbol: 'Li', category: 'alkali' },
-  { symbol: 'Be', category: 'alkaline' },
-  { symbol: 'Fe', category: 'transition' },
-  { symbol: 'B', category: 'metalloid' },
-  { symbol: 'Al', category: 'postTransition' },
-  { symbol: 'Cl', category: 'halogen' },
-  { symbol: 'Ne', category: 'nobleGas' },
-  { symbol: 'La', category: 'lanthanoid' },
-  { symbol: 'U', category: 'actinoid' },
+  { symbol: 'H', category: 'nonmetal', atomicNumber: 1, atomicMass: '1.008', electronConfig: '1s1', name: 'hydrogen' },
+  { symbol: 'Li', category: 'alkali', atomicNumber: 3, atomicMass: '6.94', electronConfig: '[He]2s1', name: 'lithium' },
+  { symbol: 'Be', category: 'alkaline', atomicNumber: 4, atomicMass: '9.012', electronConfig: '[He]2s2', name: 'beryllium' },
+  { symbol: 'Fe', category: 'transition', atomicNumber: 26, atomicMass: '55.845', electronConfig: '[Ar]3d6 4s2', name: 'iron' },
+  { symbol: 'B', category: 'metalloid', atomicNumber: 5, atomicMass: '10.81', electronConfig: '[He]2s2 2p1', name: 'boron' },
+  { symbol: 'Al', category: 'postTransition', atomicNumber: 13, atomicMass: '26.982', electronConfig: '[Ne]3s2 3p1', name: 'aluminium' },
+  { symbol: 'Cl', category: 'halogen', atomicNumber: 17, atomicMass: '35.45', electronConfig: '[Ne]3s2 3p5', name: 'chlorine' },
+  { symbol: 'Ne', category: 'nobleGas', atomicNumber: 10, atomicMass: '20.180', electronConfig: '1s2 2s2 2p6', name: 'neon' },
+  { symbol: 'La', category: 'lanthanoid', atomicNumber: 57, atomicMass: '138.905', electronConfig: '[Xe]5d1 6s2', name: 'lanthanum' },
+  { symbol: 'U', category: 'actinoid', atomicNumber: 92, atomicMass: '238.029', electronConfig: '[Rn]5f3 6d1 7s2', name: 'uranium' },
 ];
 
 const ORBIT_B_ELEMENTS: OrbitElement[] = [
-  { symbol: 'C', category: 'nonmetal' },
-  { symbol: 'Na', category: 'alkali' },
-  { symbol: 'Mg', category: 'alkaline' },
-  { symbol: 'Cu', category: 'transition' },
-  { symbol: 'Si', category: 'metalloid' },
-  { symbol: 'Sn', category: 'postTransition' },
-  { symbol: 'F', category: 'halogen' },
-  { symbol: 'Ar', category: 'nobleGas' },
-  { symbol: 'Ce', category: 'lanthanoid' },
-  { symbol: 'Th', category: 'actinoid' },
+  { symbol: 'C', category: 'nonmetal', atomicNumber: 6, atomicMass: '12.011', electronConfig: '[He]2s2 2p2', name: 'carbon' },
+  { symbol: 'Na', category: 'alkali', atomicNumber: 11, atomicMass: '22.990', electronConfig: '[Ne]3s1', name: 'sodium' },
+  { symbol: 'Mg', category: 'alkaline', atomicNumber: 12, atomicMass: '24.305', electronConfig: '[Ne]3s2', name: 'magnesium' },
+  { symbol: 'Cu', category: 'transition', atomicNumber: 29, atomicMass: '63.546', electronConfig: '[Ar]3d10 4s1', name: 'copper' },
+  { symbol: 'Si', category: 'metalloid', atomicNumber: 14, atomicMass: '28.085', electronConfig: '[Ne]3s2 3p2', name: 'silicon' },
+  { symbol: 'Sn', category: 'postTransition', atomicNumber: 50, atomicMass: '118.710', electronConfig: '[Kr]4d10 5s2 5p2', name: 'tin' },
+  { symbol: 'F', category: 'halogen', atomicNumber: 9, atomicMass: '18.998', electronConfig: '[He]2s2 2p5', name: 'fluorine' },
+  { symbol: 'Ar', category: 'nobleGas', atomicNumber: 18, atomicMass: '39.948', electronConfig: '[Ne]3s2 3p6', name: 'argon' },
+  { symbol: 'Ce', category: 'lanthanoid', atomicNumber: 58, atomicMass: '140.116', electronConfig: '[Xe]4f1 5d1 6s2', name: 'cerium' },
+  { symbol: 'Th', category: 'actinoid', atomicNumber: 90, atomicMass: '232.038', electronConfig: '[Rn]6d2 7s2', name: 'thorium' },
 ];
 
-function getOrbitPositions(elements: OrbitElement[], radius: number, phase = 0) {
+function seeded(index: number, seed: number) {
+  const value = Math.sin(index * 12.9898 + seed * 78.233) * 43758.5453;
+  return value - Math.floor(value);
+}
+
+function getOrbitPositions(elements: OrbitElement[], radius: number, phase = 0, seedShift = 1): OrbitNode[] {
   return elements.map((item, index) => {
-    const angle = (index / elements.length) * Math.PI * 2 + phase;
+    const angleJitter = (seeded(index, seedShift) - 0.5) * 0.62;
+    const radiusJitter = (seeded(index, seedShift + 3) - 0.5) * 20;
+    const angle = (index / elements.length) * Math.PI * 2 + phase + angleJitter;
+    const radialDistance = radius + radiusJitter;
     return {
       ...item,
-      x: CENTER_X + Math.cos(angle) * radius,
-      y: CENTER_Y + Math.sin(angle) * radius,
+      x: CENTER_X + Math.cos(angle) * radialDistance,
+      y: CENTER_Y + Math.sin(angle) * radialDistance,
+      tilt: (seeded(index, seedShift + 7) - 0.5) * 50,
+      driftX: (seeded(index, seedShift + 9) - 0.5) * 8,
+      driftY: (seeded(index, seedShift + 11) - 0.5) * 8,
+      wobbleDuration: 4.6 + seeded(index, seedShift + 13) * 3.8,
+      tiltDuration: 5.5 + seeded(index, seedShift + 15) * 4.5,
     };
   });
 }
 
-export default function HomePage() {
-  const { t } = useLanguage();
-  const orbitA = getOrbitPositions(ORBIT_A_ELEMENTS, 112, -Math.PI / 2);
-  const orbitB = getOrbitPositions(ORBIT_B_ELEMENTS, 146, -Math.PI / 2 + Math.PI / 10);
+function OrbitTile({ node }: { node: OrbitNode }) {
+  const { x, y, tilt, driftX, driftY, wobbleDuration, tiltDuration } = node;
+  const colors = CATEGORY_COLORS[node.category];
 
   return (
-    <div>
-      <section className="relative min-h-[78vh] md:min-h-[90vh] flex items-center px-4 py-8 md:py-0">
+    <g>
+      <animateTransform
+        attributeName="transform"
+        type="translate"
+        values={`${x.toFixed(1)} ${y.toFixed(1)}; ${(x + driftX).toFixed(1)} ${(y - driftY).toFixed(1)}; ${(x - driftX).toFixed(1)} ${(y + driftY).toFixed(1)}; ${x.toFixed(1)} ${y.toFixed(1)}`}
+        dur={`${wobbleDuration.toFixed(2)}s`}
+        repeatCount="indefinite"
+      />
+      <g>
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          values={`${tilt.toFixed(1)}; ${(tilt + 8).toFixed(1)}; ${(tilt - 7).toFixed(1)}; ${tilt.toFixed(1)}`}
+          dur={`${tiltDuration.toFixed(2)}s`}
+          repeatCount="indefinite"
+        />
+        <rect
+          x={-TILE_WIDTH / 2}
+          y={-TILE_HEIGHT / 2}
+          width={TILE_WIDTH}
+          height={TILE_HEIGHT}
+          rx="4"
+          fill={colors.fill}
+          fillOpacity="0.94"
+          stroke={colors.stroke}
+          strokeWidth="1.1"
+        />
+        <text x={-TILE_WIDTH / 2 + 3} y={-TILE_HEIGHT / 2 + 7} fontSize="3.9" fontWeight="700" fill={colors.text}>
+          {node.atomicNumber}
+        </text>
+        <text x={TILE_WIDTH / 2 - 2.5} y={-TILE_HEIGHT / 2 + 7} textAnchor="end" fontSize="3.7" fontWeight="600" fill={colors.text}>
+          ({node.atomicMass})
+        </text>
+        <text x="0" y="-1.5" textAnchor="middle" dominantBaseline="middle" fontSize="9.6" fontWeight="800" fill={colors.text}>
+          {node.symbol}
+        </text>
+        <line x1={TILE_WIDTH / 2 - 10} y1="3.5" x2={TILE_WIDTH / 2 - 3} y2="3.5" stroke={colors.stroke} strokeWidth="0.95" />
+        <line x1={TILE_WIDTH / 2 - 10} y1="6" x2={TILE_WIDTH / 2 - 3} y2="6" stroke={colors.stroke} strokeWidth="0.95" />
+        <text x={-TILE_WIDTH / 2 + 3} y={TILE_HEIGHT / 2 - 7} fontSize="3.2" fontWeight="600" fill={colors.text}>
+          {node.electronConfig}
+        </text>
+        <text x={-TILE_WIDTH / 2 + 3} y={TILE_HEIGHT / 2 - 1.8} fontSize="3.85" fontWeight="700" fill={colors.text}>
+          {node.name}
+        </text>
+      </g>
+    </g>
+  );
+}
+
+export default function HomePage() {
+  const { t } = useLanguage();
+  const orbitA = getOrbitPositions(ORBIT_A_ELEMENTS, 118, -Math.PI / 2, 1);
+  const orbitB = getOrbitPositions(ORBIT_B_ELEMENTS, 148, -Math.PI / 2 + Math.PI / 10, 17);
+
+  return (
+    <div className="page-enter">
+      <section className="page-section reveal-1 relative min-h-[78vh] md:min-h-[90vh] flex items-center px-4 py-8 md:py-0">
         <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center gap-8 md:gap-10">
           <div className="flex-1 max-w-xl text-center md:text-left">
             <div className="flex gap-1.5 mb-6 justify-center md:justify-start">
@@ -116,32 +199,16 @@ export default function HomePage() {
               <g>
                 <g>
                   <animateTransform attributeName="transform" type="rotate" from="0 150 190" to="360 150 190" dur="18s" repeatCount="indefinite" />
-                  {orbitA.map((element, index) => {
-                    const colors = CATEGORY_COLORS[element.category];
-                    return (
-                      <g key={`orbit-a-${element.symbol}-${index}`} transform={`translate(${element.x.toFixed(1)} ${element.y.toFixed(1)})`}>
-                        <circle r="14.2" fill={colors.fill} fillOpacity="0.95" stroke={colors.stroke} strokeWidth="1.2" />
-                        <text textAnchor="middle" dominantBaseline="middle" fontSize="9.2" fontWeight="700" fill={colors.text}>
-                          {element.symbol}
-                        </text>
-                      </g>
-                    );
-                  })}
+                  {orbitA.map((node, index) => (
+                    <OrbitTile key={`orbit-a-${node.symbol}-${index}`} node={node} />
+                  ))}
                 </g>
 
                 <g>
                   <animateTransform attributeName="transform" type="rotate" from="360 150 190" to="0 150 190" dur="24s" repeatCount="indefinite" />
-                  {orbitB.map((element, index) => {
-                    const colors = CATEGORY_COLORS[element.category];
-                    return (
-                      <g key={`orbit-b-${element.symbol}-${index}`} transform={`translate(${element.x.toFixed(1)} ${element.y.toFixed(1)})`}>
-                        <circle r="14.2" fill={colors.fill} fillOpacity="0.95" stroke={colors.stroke} strokeWidth="1.2" />
-                        <text textAnchor="middle" dominantBaseline="middle" fontSize="9.2" fontWeight="700" fill={colors.text}>
-                          {element.symbol}
-                        </text>
-                      </g>
-                    );
-                  })}
+                  {orbitB.map((node, index) => (
+                    <OrbitTile key={`orbit-b-${node.symbol}-${index}`} node={node} />
+                  ))}
                 </g>
               </g>
 
@@ -156,7 +223,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-4 -mt-4">
+      <section className="page-section reveal-2 relative z-10 px-4 -mt-4">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:flex rounded-2xl overflow-hidden" style={{ background:'rgba(255,255,255,0.45)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.5)',boxShadow:'0 8px 32px rgba(0,0,0,0.06)' }}>
             {t.home.stats.map((s,i)=>(
@@ -169,12 +236,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 py-20 max-w-5xl mx-auto">
+      <section className="page-section reveal-3 px-4 py-20 max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>{t.home.whyBadge}</div>
           <h2 className="text-2xl md:text-3xl font-black">{t.home.whyTitleBefore} <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">{t.home.whyTitleAccent}</span> {t.home.whyTitleAfter}</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="page-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {t.home.whyItems.map((f,i)=>(
             <div key={i} className="card-hover p-6 rounded-2xl relative overflow-hidden group" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
               <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{background:`radial-gradient(circle at top right,${f.a}15,transparent 70%)`}}/>
@@ -187,7 +254,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 pb-20">
+      <section className="page-section reveal-4 px-4 pb-20">
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden p-8 sm:p-10 md:p-16 text-center" style={{background:'linear-gradient(135deg,rgba(234,88,12,0.12),rgba(251,146,60,0.08),rgba(245,158,11,0.1))',backdropFilter:'blur(20px)',border:'1px solid rgba(234,88,12,0.15)'}}>
             <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">{t.home.ctaTitle}</h3>

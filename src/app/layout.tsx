@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="chem-bg__mist" />
           </div>
           <Navbar />
-          <main className="flex-1 page-content animate-fade-slide">{children}</main>
+          <main className="flex-1 page-content">{children}</main>
           <Footer />
         </LanguageProvider>
       </body>

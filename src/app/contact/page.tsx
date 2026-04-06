@@ -7,14 +7,14 @@ export default function ContactPage() {
   const { t } = useLanguage();
 
   return (
-    <div className="px-4 py-12 md:py-16 max-w-6xl mx-auto">
-      <div className="text-center mb-12">
+    <div className="page-enter px-4 py-12 md:py-16 max-w-6xl mx-auto">
+      <div className="page-section reveal-1 text-center mb-12">
         <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>{t.contact.badge}</div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-black">{t.contact.titleBefore} <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">{t.contact.titleAccent}</span></h1>
         <p className="text-sm text-stone-500 mt-3">{t.contact.subtitle}</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <div className="page-section reveal-2 grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <div className="p-5 sm:p-8 rounded-2xl h-fit" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
           <h2 className="text-lg font-extrabold mb-2">{t.contact.formTitle}</h2>
           <p className="text-sm text-stone-500 mb-6">{t.contact.formSubtitle}</p>
@@ -31,7 +31,7 @@ export default function ContactPage() {
             <p className="text-sm text-stone-500">{t.contact.callSubtitle}</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="page-stagger space-y-4">
             <a href="tel:+998901234567" className="flex items-center gap-4 p-4 rounded-xl hover:bg-orange-50/50 transition-all group" style={{ border:'1px solid rgba(0,0,0,0.04)' }}>
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-lg" style={{ background:'rgba(234,88,12,0.1)' }}>📞</div>
               <div className="min-w-0">
