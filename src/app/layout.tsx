@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { LanguageProvider } from '@/context/LanguageContext';
+
+const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'JAP Academy — Kimyo o\'quv markazi',
@@ -16,8 +19,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="uz">
-      <body className="min-h-screen flex flex-col">
+    <html lang="uz" className={inter.variable}>
+      <body className="min-h-screen flex flex-col font-sans">
         <LanguageProvider>
           <div className="chem-bg" aria-hidden="true">
             <div className="chem-bg__base" />

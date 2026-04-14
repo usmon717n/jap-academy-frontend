@@ -12,12 +12,12 @@ export default function UsefulPage() {
       </div>
       <div className="page-section reveal-2 page-stagger grid grid-cols-1 md:grid-cols-2 gap-6">
         {t.useful.videos.map((v, i) => (
-          <div key={i} className="rounded-2xl overflow-hidden" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
-            <div className="aspect-video">
+          <div key={i} className="rounded-3xl overflow-hidden glass-panel glass-panel-hover p-2 shadow-premium">
+            <div className="aspect-video rounded-2xl overflow-hidden shadow-sm">
               <iframe src={v.url} width="100%" height="100%" style={{ border:0 }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
             </div>
             <div className="p-4 sm:p-5">
-              <div className="text-sm sm:text-base font-extrabold text-stone-800 leading-snug">{v.title}</div>
+              <div className="text-sm sm:text-base font-extrabold text-stone-800 leading-snug group-hover:text-orange-700 transition-colors">{v.title}</div>
             </div>
           </div>
         ))}

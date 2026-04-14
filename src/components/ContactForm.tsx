@@ -65,7 +65,7 @@ export default function ContactForm() {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="name" className="block text-xs font-bold text-stone-600 mb-2">
+        <label htmlFor="name" className="block text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2">
           {t.form.nameLabel}
         </label>
         <input
@@ -78,13 +78,13 @@ export default function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, name: event.target.value }))
           }
-          className="w-full px-4 py-3 rounded-xl text-sm text-stone-700 bg-white/80 border border-orange-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all"
+          className="w-full px-5 py-4 rounded-2xl text-sm text-stone-700 bg-white/60 border border-white/80 backdrop-blur-sm outline-none shadow-sm focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all placeholder:text-stone-400"
           placeholder={t.form.namePlaceholder}
         />
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-xs font-bold text-stone-600 mb-2">
+        <label htmlFor="phone" className="block text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2">
           {t.form.phoneLabel}
         </label>
         <input
@@ -97,13 +97,13 @@ export default function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, phone: event.target.value }))
           }
-          className="w-full px-4 py-3 rounded-xl text-sm text-stone-700 bg-white/80 border border-orange-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all"
+          className="w-full px-5 py-4 rounded-2xl text-sm text-stone-700 bg-white/60 border border-white/80 backdrop-blur-sm outline-none shadow-sm focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all placeholder:text-stone-400"
           placeholder={t.form.phonePlaceholder}
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-xs font-bold text-stone-600 mb-2">
+        <label htmlFor="message" className="block text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2">
           {t.form.messageLabel}
         </label>
         <textarea
@@ -115,7 +115,7 @@ export default function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, message: event.target.value }))
           }
-          className="w-full px-4 py-3 rounded-xl text-sm text-stone-700 bg-white/80 border border-orange-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 transition-all resize-none"
+          className="w-full px-5 py-4 rounded-2xl text-sm text-stone-700 bg-white/60 border border-white/80 backdrop-blur-sm outline-none shadow-sm focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all resize-none placeholder:text-stone-400"
           placeholder={t.form.messagePlaceholder}
         />
       </div>
@@ -123,21 +123,21 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="btn-primary w-full px-6 py-3 rounded-xl text-sm font-bold text-white disabled:opacity-60 disabled:cursor-not-allowed"
+        className="btn-primary w-full px-8 py-4 rounded-2xl text-base font-bold text-white shadow-premium-hover disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isSubmitting ? t.form.sending : t.form.submit}
       </button>
 
       {submitState && (
-        <p
-          className={`text-xs px-3 py-2 rounded-lg ${
+        <div
+          className={`text-sm px-5 py-4 rounded-2xl animate-fade-slide ${
             submitState.type === 'success'
-              ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
-              : 'text-red-700 bg-red-50 border border-red-200'
+              ? 'text-emerald-700 bg-emerald-50 border border-emerald-100 shadow-sm shadow-emerald-200/40'
+              : 'text-red-700 bg-red-50 border border-red-100 shadow-sm shadow-red-200/40'
           }`}
         >
           {submitState.message}
-        </p>
+        </div>
       )}
     </form>
   );

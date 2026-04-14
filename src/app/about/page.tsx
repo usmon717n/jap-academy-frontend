@@ -31,10 +31,10 @@ export default function AboutPage() {
       {/* Results — auto-scrolling slider */}
       <div className="page-section reveal-2 mb-16">
         <h2 className="text-lg font-extrabold mb-6 text-center">{t.about.resultsTitle}</h2>
-        <div className="relative overflow-hidden rounded-2xl" style={{ background:'rgba(255,255,255,0.3)',border:'1px solid rgba(255,255,255,0.4)' }}>
+        <div className="relative overflow-hidden rounded-3xl glass-panel shadow-premium">
           <div className="flex gap-5 py-6 px-4 animate-scroll-left">
             {[...results,...results,...results].map((r, i) => (
-              <div key={i} className="flex-shrink-0 w-56 h-36 sm:w-64 sm:h-44 md:w-72 md:h-48 rounded-xl overflow-hidden shadow-lg" style={{ boxShadow:'0 8px 25px rgba(0,0,0,0.08)' }}>
+              <div key={i} className="flex-shrink-0 w-56 h-36 sm:w-64 sm:h-44 md:w-72 md:h-48 rounded-2xl overflow-hidden shadow-premium">
                 <img src={r.image} alt={r.alt} className="w-full h-full object-cover" />
               </div>
             ))}
@@ -45,9 +45,9 @@ export default function AboutPage() {
       {/* Student cards — 5 in a row */}
       <div className="page-section reveal-3 mb-16">
         <h2 className="text-lg font-extrabold mb-6 text-center">{t.about.bestStudentsTitle}</h2>
-        <div className="page-stagger grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        <div className="page-stagger grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
           {t.about.students.map((s, i) => (
-            <div key={i} className="card-hover p-5 rounded-2xl text-center group" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
+            <div key={i} className="p-6 rounded-3xl text-center group glass-panel glass-panel-hover">
               <div className="w-16 h-16 rounded-full mx-auto mb-3 overflow-hidden ring-3 ring-orange-200/50 group-hover:ring-orange-400/50 transition-all duration-300">
                 <img src={studentImages[i]} alt={s.name} className="w-full h-full object-cover" />
               </div>
@@ -59,17 +59,17 @@ export default function AboutPage() {
       </div>
 
       {/* About text */}
-      <div className="page-section reveal-4 max-w-3xl mx-auto space-y-5">
-        <div className="p-6 md:p-8 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
-          <h2 className="text-lg font-extrabold mb-3 text-orange-700">{t.about.missionTitle}</h2>
+      <div className="page-section reveal-4 max-w-3xl mx-auto space-y-6">
+        <div className="p-8 md:p-10 rounded-3xl glass-panel shadow-premium">
+          <h2 className="text-xl font-black mb-4 text-orange-700 tracking-tight">{t.about.missionTitle}</h2>
           <p className="text-sm text-stone-600 leading-relaxed">
             {t.about.missionText}
           </p>
         </div>
-        <div className="page-stagger grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="page-stagger grid grid-cols-1 md:grid-cols-2 gap-6">
           {t.about.cards.map((c,i)=>(
-            <div key={i} className="p-5 md:p-6 rounded-2xl" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
-              <div className="text-2xl mb-2">{c.i}</div>
+            <div key={i} className="p-6 md:p-8 rounded-3xl glass-panel glass-panel-hover">
+              <div className="text-3xl mb-3">{c.i}</div>
               <div className="text-sm font-extrabold mb-1">{c.t}</div>
               <div className="text-xs text-stone-500">{c.d}</div>
             </div>

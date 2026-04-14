@@ -164,8 +164,25 @@ body {
   }
   .chem-bg__orb {
     animation: none;
-    opacity: 0.24;
+    opacity: 0.15;
   }
+}
+
+/* ═══ PREMIUM GLASS PANELS ═══ */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(234, 88, 12, 0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05), 0 8px 16px rgba(234, 88, 12, 0.06);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 1);
 }
 
 /* ═══ LIQUID GLASS NAVBAR (Apple-style) ═══ */

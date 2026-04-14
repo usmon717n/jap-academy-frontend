@@ -50,16 +50,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            <div
-              className="hidden md:flex items-center gap-0.5 rounded-full p-1"
-              style={{
-                background: 'rgba(255,255,255,0.35)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255,255,255,0.45)',
-                boxShadow: '0 1px 0 rgba(255,255,255,0.4) inset, 0 2px 8px rgba(0,0,0,0.03)',
-              }}
-            >
+            <div className="hidden md:flex items-center gap-0.5 rounded-full p-1.5 glass-panel">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -74,14 +65,7 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:flex items-center gap-2">
-              <div
-                className="relative"
-                style={{
-                  background: 'rgba(255,255,255,0.5)',
-                  border: '1px solid rgba(255,255,255,0.7)',
-                  borderRadius: '9999px',
-                }}
-              >
+              <div className="relative rounded-full glass-panel flex items-center justify-center pb-0.5">
                 <svg
                   width="14"
                   height="14"
@@ -139,8 +123,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               aria-label={t.navbar.menuAria}
-              className="md:hidden w-10 h-10 rounded-xl flex items-center justify-center text-stone-700 hover:text-orange-600 transition-colors"
-              style={{ background: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.6)' }}
+              className="md:hidden w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-orange-600 transition-colors glass-panel"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 {isMobileMenuOpen ? (
@@ -160,15 +143,7 @@ export default function Navbar() {
           </div>
 
           {isMobileMenuOpen && (
-            <div
-              className="md:hidden mb-3 p-3 rounded-2xl animate-fade-scale"
-              style={{
-                background: 'rgba(255,255,255,0.58)',
-                backdropFilter: 'blur(14px)',
-                WebkitBackdropFilter: 'blur(14px)',
-                border: '1px solid rgba(255,255,255,0.62)',
-              }}
-            >
+            <div className="md:hidden mt-2 mb-3 p-4 rounded-[2rem] animate-fade-scale glass-panel shadow-premium">
               <div className="flex flex-col gap-1.5">
                 <div className="px-1 mb-1">
                   <label className="block text-[11px] font-semibold text-stone-500 mb-1.5">{t.navbar.language}</label>

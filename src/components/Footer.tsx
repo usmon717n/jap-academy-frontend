@@ -7,10 +7,7 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="relative mt-16 overflow-hidden" style={{
-      background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
-      borderTop: '1px solid rgba(255,255,255,0.5)',
-    }}>
+    <footer className="relative mt-20 overflow-hidden glass-panel !border-t-white/60 !rounded-none pb-8">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-0.5 bg-gradient-to-r from-transparent via-orange-400/40 to-transparent" />
       <div className="relative max-w-6xl mx-auto px-4 pt-14 pb-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-10">

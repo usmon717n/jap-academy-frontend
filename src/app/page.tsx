@@ -224,8 +224,8 @@ export default function HomePage() {
       </section>
 
       <section className="page-section reveal-2 relative z-10 px-4 -mt-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:flex rounded-2xl overflow-hidden" style={{ background:'rgba(255,255,255,0.45)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,0.5)',boxShadow:'0 8px 32px rgba(0,0,0,0.06)' }}>
+        <div className="max-w-4xl mx-auto py-8">
+          <div className="grid grid-cols-2 md:flex rounded-3xl overflow-hidden glass-panel shadow-premium">
             {t.home.stats.map((s,i)=>(
               <div key={i} className={`md:flex-1 text-center py-6 md:py-7 ${i>0?'md:border-l border-white/40':''} ${i>1?'border-t md:border-t-0 border-white/40':''}`}>
                 <div className={`text-xl md:text-2xl font-black ${s.c}`}>{s.n}</div>
@@ -241,9 +241,9 @@ export default function HomePage() {
           <div className="inline-flex text-orange-600 text-[11px] font-bold tracking-widest px-4 py-1.5 rounded-full mb-4" style={{ background:'rgba(255,237,213,0.6)',border:'1px solid rgba(234,88,12,0.1)' }}>{t.home.whyBadge}</div>
           <h2 className="text-2xl md:text-3xl font-black">{t.home.whyTitleBefore} <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">{t.home.whyTitleAccent}</span> {t.home.whyTitleAfter}</h2>
         </div>
-        <div className="page-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="page-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {t.home.whyItems.map((f,i)=>(
-            <div key={i} className="card-hover p-6 rounded-2xl relative overflow-hidden group" style={{background:'rgba(255,255,255,0.55)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.6)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}>
+            <div key={i} className="p-8 rounded-3xl relative overflow-hidden group glass-panel glass-panel-hover">
               <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{background:`radial-gradient(circle at top right,${f.a}15,transparent 70%)`}}/>
               <div className="absolute top-0 left-6 right-6 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" style={{background:`linear-gradient(90deg,transparent,${f.a}40,transparent)`}}/>
               <div className="text-2xl mb-3 group-hover:scale-110 transition-transform duration-300">{f.i}</div>
@@ -254,12 +254,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="page-section reveal-4 px-4 pb-20">
+      <section className="page-section reveal-4 px-4 pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden p-8 sm:p-10 md:p-16 text-center" style={{background:'linear-gradient(135deg,rgba(234,88,12,0.12),rgba(251,146,60,0.08),rgba(245,158,11,0.1))',backdropFilter:'blur(20px)',border:'1px solid rgba(234,88,12,0.15)'}}>
-            <h3 className="text-2xl md:text-3xl font-black text-stone-800 mb-4">{t.home.ctaTitle}</h3>
-            <p className="text-sm text-stone-500 mb-8 max-w-md mx-auto">{t.home.ctaDescription}</p>
-            <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm w-full sm:w-auto">{t.home.ctaButton} &rarr;</Link>
+          <div className="relative rounded-[2rem] overflow-hidden p-10 sm:p-12 md:p-20 text-center glass-panel shadow-premium" style={{background:'linear-gradient(135deg,rgba(255,255,255,0.8),rgba(255,247,237,0.6))', border:'1px solid rgba(255,255,255,1)'}}>
+            <h3 className="text-3xl md:text-4xl font-black text-stone-800 mb-6 tracking-tight">{t.home.ctaTitle}</h3>
+            <p className="text-base text-stone-500 mb-10 max-w-lg mx-auto">{t.home.ctaDescription}</p>
+            <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full text-white font-bold text-base w-full sm:w-auto shadow-premium-hover">{t.home.ctaButton} &rarr;</Link>
           </div>
         </div>
       </section>
