@@ -65,7 +65,7 @@ export default function ContactForm() {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="name" className="block text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2">
+        <label htmlFor="name" className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-2">
           {t.form.nameLabel}
         </label>
         <input
@@ -78,13 +78,13 @@ export default function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, name: event.target.value }))
           }
-          className="w-full px-5 py-4 rounded-2xl text-sm text-stone-700 bg-white/60 border border-white/80 backdrop-blur-sm outline-none shadow-sm focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all placeholder:text-stone-400"
+          className="w-full px-5 py-4 rounded-2xl text-sm text-zinc-100 bg-white/5 border border-white/10 backdrop-blur-sm outline-none focus:bg-white/8 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/15 transition-all placeholder:text-zinc-600"
           placeholder={t.form.namePlaceholder}
         />
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2">
+        <label htmlFor="phone" className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-2">
           {t.form.phoneLabel}
         </label>
         <input
@@ -97,13 +97,13 @@ export default function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, phone: event.target.value }))
           }
-          className="w-full px-5 py-4 rounded-2xl text-sm text-stone-700 bg-white/60 border border-white/80 backdrop-blur-sm outline-none shadow-sm focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all placeholder:text-stone-400"
+          className="w-full px-5 py-4 rounded-2xl text-sm text-zinc-100 bg-white/5 border border-white/10 backdrop-blur-sm outline-none focus:bg-white/8 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/15 transition-all placeholder:text-zinc-600"
           placeholder={t.form.phonePlaceholder}
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2">
+        <label htmlFor="message" className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-2">
           {t.form.messageLabel}
         </label>
         <textarea
@@ -115,7 +115,7 @@ export default function ContactForm() {
           onChange={(event) =>
             setForm((prev) => ({ ...prev, message: event.target.value }))
           }
-          className="w-full px-5 py-4 rounded-2xl text-sm text-stone-700 bg-white/60 border border-white/80 backdrop-blur-sm outline-none shadow-sm focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all resize-none placeholder:text-stone-400"
+          className="w-full px-5 py-4 rounded-2xl text-sm text-zinc-100 bg-white/5 border border-white/10 backdrop-blur-sm outline-none focus:bg-white/8 focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/15 transition-all resize-none placeholder:text-zinc-600"
           placeholder={t.form.messagePlaceholder}
         />
       </div>
@@ -132,8 +132,8 @@ export default function ContactForm() {
         <div
           className={`text-sm px-5 py-4 rounded-2xl animate-fade-slide ${
             submitState.type === 'success'
-              ? 'text-emerald-700 bg-emerald-50 border border-emerald-100 shadow-sm shadow-emerald-200/40'
-              : 'text-red-700 bg-red-50 border border-red-100 shadow-sm shadow-red-200/40'
+              ? 'text-emerald-400 bg-emerald-950/60 border border-emerald-900/50'
+              : 'text-red-400 bg-red-950/60 border border-red-900/50'
           }`}
         >
           {submitState.message}
