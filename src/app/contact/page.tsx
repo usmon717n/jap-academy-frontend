@@ -47,7 +47,7 @@ export default function ContactPage() {
           </div>
 
           <div className="page-stagger space-y-4">
-            <a href="tel:+998901234567"
+            <a href="tel:+9989701350110"
               className="flex items-center gap-5 p-5 rounded-2xl glass-panel glass-panel-hover transition-all group">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-orange-500/8 border border-orange-500/15">📞</div>
               <div className="min-w-0">
@@ -56,7 +56,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <a href="https://t.me/japacademy" target="_blank"
+            <a href="https://t.me/jap-academy" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-5 p-5 rounded-2xl glass-panel glass-panel-hover transition-all group">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-sky-950/60 border border-sky-900/30">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#0088cc">
@@ -69,7 +69,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <a href="https://instagram.com/japacademy" target="_blank"
+            <a href="https://instagram.com/jap-academy" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-5 p-5 rounded-2xl glass-panel glass-panel-hover transition-all group">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-pink-950/60 border border-pink-900/30">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#E1306C">

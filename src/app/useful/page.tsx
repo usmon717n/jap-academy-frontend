@@ -14,7 +14,15 @@ export default function UsefulPage() {
         {t.useful.videos.map((v, i) => (
           <div key={i} className="rounded-3xl overflow-hidden glass-panel glass-panel-hover p-2 shadow-premium">
             <div className="aspect-video rounded-2xl overflow-hidden shadow-sm">
-              <iframe src={v.url} width="100%" height="100%" style={{ border:0 }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+              <iframe
+                src={v.url}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                title={v.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
             <div className="p-4 sm:p-5">
               <div className="text-sm sm:text-base font-extrabold text-zinc-100 leading-snug group-hover:text-orange-400 transition-colors">{v.title}</div>

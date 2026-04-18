@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
 const chetelImages = [
@@ -22,12 +23,12 @@ const results = [
   { image: '/results/certificate-9.png', alt: 'Kimyo sertifikati 9' },
 ];
 
-const studentImages = [
-  'https://placehold.co/200x200/ff6500/white?text=AK',
-  'https://placehold.co/200x200/ff8533/white?text=JT',
-  'https://placehold.co/200x200/ffb347/111111?text=MR',
-  'https://placehold.co/200x200/cc5000/white?text=BA',
-  'https://placehold.co/200x200/ff6500/white?text=NS',
+const studentAvatars = [
+  { initials: 'AK', tone: 'from-orange-500 to-amber-500' },
+  { initials: 'JT', tone: 'from-orange-600 to-rose-500' },
+  { initials: 'MR', tone: 'from-amber-500 to-orange-500' },
+  { initials: 'BA', tone: 'from-orange-700 to-orange-500' },
+  { initials: 'NS', tone: 'from-orange-500 to-yellow-500' },
 ];
 
 export default function AboutPage() {
@@ -76,15 +77,13 @@ export default function AboutPage() {
                 <div className="result-card relative overflow-hidden rounded-3xl p-2.5 glass-panel shadow-premium group cursor-pointer"
                   style={{ transition: 'all 0.4s cubic-bezier(0.2,0.8,0.2,1)' }}
                 >
-                  <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500/6 to-amber-500/4 border border-orange-500/10 h-[300px] sm:h-[330px]">
-                    <img
+                  <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500/6 to-amber-500/4 border border-orange-500/10 h-[300px] sm:h-[330px]">
+                    <Image
                       src={r.image}
                       alt={r.alt}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://placehold.co/480x680/111/ff6500?text=Sertifikat';
-                      }}
-                      className="w-full h-full object-contain p-1 transition-transform duration-500 group-hover:scale-[1.04]"
+                      fill
+                      sizes="(max-width: 640px) 220px, 240px"
+                      className="object-contain p-1 transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                   </div>
                   {/* Shine overlay */}
@@ -121,23 +120,21 @@ export default function AboutPage() {
                   onMouseEnter={e => {
                     (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,100,0,0.35)';
                     (e.currentTarget as HTMLElement).style.transform = 'translateY(-5px) scale(1.02)';
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 24px 50px rgba(0,0,0,0.5), 0 0 40px rgba(255,100,0,0.1)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 22px 50px rgba(15,23,42,0.12), 0 0 36px rgba(255,100,0,0.09)';
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(148,163,184,0.24)';
                     (e.currentTarget as HTMLElement).style.transform = 'translateY(0) scale(1)';
                     (e.currentTarget as HTMLElement).style.boxShadow = '';
                   }}
                 >
-                  <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500/6 to-amber-500/4 border border-orange-500/10">
-                    <img
+                  <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-orange-500/6 to-amber-500/4 border border-orange-500/10 h-[220px] sm:h-[260px]">
+                    <Image
                       src={r.image}
                       alt={r.alt}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://placehold.co/480x360/111/ff6500?text=O\'quvchi';
-                      }}
-                      className="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      fill
+                      sizes="(max-width: 640px) 280px, 320px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                   </div>
                   <div className="absolute inset-0 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -161,7 +158,9 @@ export default function AboutPage() {
             <div key={i} className="p-6 rounded-3xl text-center group glass-panel glass-panel-hover relative overflow-hidden">
               <div className="absolute top-3 right-3 font-mono text-[9px] text-orange-500/35 font-black">{String(i + 1).padStart(2, '0')}</div>
               <div className="w-16 h-16 rounded-full mx-auto mb-4 overflow-hidden ring-2 ring-orange-500/20 group-hover:ring-orange-500/50 transition-all duration-300">
-                <img src={studentImages[i]} alt={s.name} className="w-full h-full object-cover" />
+                <div className={`w-full h-full bg-gradient-to-br ${studentAvatars[i % studentAvatars.length].tone} flex items-center justify-center text-white font-black text-xs tracking-wider`}>
+                  {studentAvatars[i % studentAvatars.length].initials}
+                </div>
               </div>
               <div className="text-xs font-black text-zinc-100 mb-1">{s.name}</div>
               <div className="text-[10px] text-zinc-500 leading-relaxed">{s.desc}</div>

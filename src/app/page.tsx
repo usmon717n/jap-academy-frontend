@@ -5,6 +5,35 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function HomePage() {
   const { t } = useLanguage();
+  const languageTracks = [
+    {
+      key: '01',
+      short: 'UZ',
+      lang: t.home.languages.uz,
+      desc: t.home.languages.uzDesc,
+      flag: '🇺🇿',
+      accent: 'from-cyan-500 to-emerald-500',
+      nodePos: 'top-[8%] left-1/2 -translate-x-1/2',
+    },
+    {
+      key: '02',
+      short: 'RU',
+      lang: t.home.languages.ru,
+      desc: t.home.languages.ruDesc,
+      flag: '🇷🇺',
+      accent: 'from-slate-400 to-rose-500',
+      nodePos: 'bottom-[14%] left-[8%]',
+    },
+    {
+      key: '03',
+      short: 'EN',
+      lang: t.home.languages.en,
+      desc: t.home.languages.enDesc,
+      flag: '🇬🇧',
+      accent: 'from-indigo-500 to-blue-500',
+      nodePos: 'bottom-[14%] right-[8%]',
+    },
+  ];
 
   return (
     <div className="page-enter relative">
@@ -21,15 +50,6 @@ export default function HomePage() {
 
           {/* LEFT — TEXT */}
           <div className="text-center lg:text-left z-10">
-
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl border border-orange-500/20 bg-orange-500/8 text-orange-400 mb-8 animate-fade-slide">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
-              </span>
-              <span className="text-[10px] font-black tracking-[0.25em] uppercase">{t.home.whyBadge}</span>
-            </div>
 
             {/* Heading */}
             <h1 className="text-4xl md:text-6xl lg:text-[72px] font-black tracking-tight leading-[1.05] mb-8 text-zinc-50">
@@ -103,7 +123,7 @@ export default function HomePage() {
               {/* ─ Orbit 1 — tilt -25° ─ */}
               <g transform="rotate(-25 270 270)">
                 <g transform="translate(270 270)">
-                  <ellipse rx="175" ry="55" stroke="rgba(255,100,0,0.2)" strokeWidth="1" />
+                  <ellipse rx="175" ry="55" stroke="rgba(255,100,0,0.26)" strokeWidth="1" />
                   <circle r="6" fill="#ff6500" filter="url(#glow-sm)">
                     <animateMotion dur="7s" repeatCount="indefinite"
                       path="M 175,0 A 175,55 0 1,0 -175,0 A 175,55 0 1,0 175,0" />
@@ -114,7 +134,7 @@ export default function HomePage() {
               {/* ─ Orbit 2 — tilt 65° ─ */}
               <g transform="rotate(65 270 270)">
                 <g transform="translate(270 270)">
-                  <ellipse rx="175" ry="55" stroke="rgba(255,160,64,0.15)" strokeWidth="1" />
+                  <ellipse rx="175" ry="55" stroke="rgba(255,160,64,0.22)" strokeWidth="1" />
                   <circle r="5" fill="#ffb347" filter="url(#glow-sm)">
                     <animateMotion dur="11s" repeatCount="indefinite"
                       path="M -175,0 A 175,55 0 1,1 175,0 A 175,55 0 1,1 -175,0" />
@@ -125,7 +145,7 @@ export default function HomePage() {
               {/* ─ Orbit 3 — tilt -115° ─ */}
               <g transform="rotate(-115 270 270)">
                 <g transform="translate(270 270)">
-                  <ellipse rx="175" ry="55" stroke="rgba(255,100,0,0.12)" strokeWidth="1" />
+                  <ellipse rx="175" ry="55" stroke="rgba(255,100,0,0.2)" strokeWidth="1" />
                   <circle r="4.5" fill="#ff8533" filter="url(#glow-sm)">
                     <animateMotion dur="9s" repeatCount="indefinite"
                       path="M 175,0 A 175,55 0 1,0 -175,0 A 175,55 0 1,0 175,0" />
@@ -134,12 +154,12 @@ export default function HomePage() {
               </g>
 
               {/* Nucleus dashed ring */}
-              <circle cx="270" cy="270" r="82" stroke="rgba(255,100,0,0.2)" strokeWidth="1"
+              <circle cx="270" cy="270" r="82" stroke="rgba(255,100,0,0.28)" strokeWidth="1"
                 strokeDasharray="5 5" fill="none" />
 
               {/* Central element card */}
               <rect x="192" y="192" width="156" height="156" rx="16"
-                fill="rgba(10,6,2,0.92)" stroke="rgba(255,100,0,0.55)" strokeWidth="1.5"
+                fill="rgba(255,255,255,0.88)" stroke="rgba(255,100,0,0.34)" strokeWidth="1.5"
                 filter="url(#glow-lg)" />
               <rect x="192" y="192" width="156" height="156" rx="16" fill="url(#cardGrad)" />
 
@@ -149,7 +169,7 @@ export default function HomePage() {
 
               {/* Electron config */}
               <text x="334" y="214" fontSize="8" fontFamily="ui-monospace,monospace"
-                fill="rgba(255,255,255,0.2)" textAnchor="end">2.8.18.32.18.1</text>
+                fill="rgba(100,116,139,0.84)" textAnchor="end">2.8.18.32.18.1</text>
 
               {/* Symbol */}
               <text x="270" y="280" fontSize="64" fontFamily="system-ui,-apple-system,sans-serif"
@@ -158,7 +178,7 @@ export default function HomePage() {
 
               {/* Name */}
               <text x="270" y="320" fontSize="11" fontFamily="system-ui,sans-serif"
-                fill="rgba(255,255,255,0.38)" textAnchor="middle" letterSpacing="4">GOLD</text>
+                fill="rgba(71,85,105,0.82)" textAnchor="middle" letterSpacing="4">GOLD</text>
 
               {/* Atomic mass */}
               <text x="270" y="338" fontSize="11" fontFamily="ui-monospace,monospace"
@@ -168,70 +188,70 @@ export default function HomePage() {
 
               {/* H */}
               <g transform="translate(52,75)">
-                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.03)"
+                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.7)"
                   stroke="rgba(255,100,0,0.22)" strokeWidth="1" />
                 <text x="7" y="16" fontSize="9" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.55)" fontWeight="700">1</text>
                 <text x="26" y="34" fontSize="22" fontFamily="system-ui,sans-serif"
-                  fontWeight="900" fill="rgba(255,255,255,0.8)" textAnchor="middle">H</text>
+                  fontWeight="900" fill="rgba(30,41,59,0.88)" textAnchor="middle">H</text>
                 <text x="26" y="47" fontSize="7.5" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.35)" textAnchor="middle">1.008</text>
               </g>
 
               {/* C */}
               <g transform="translate(440,55)">
-                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.03)"
+                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.7)"
                   stroke="rgba(255,100,0,0.22)" strokeWidth="1" />
                 <text x="7" y="16" fontSize="9" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.55)" fontWeight="700">6</text>
                 <text x="26" y="34" fontSize="22" fontFamily="system-ui,sans-serif"
-                  fontWeight="900" fill="rgba(255,255,255,0.8)" textAnchor="middle">C</text>
+                  fontWeight="900" fill="rgba(30,41,59,0.88)" textAnchor="middle">C</text>
                 <text x="26" y="47" fontSize="7.5" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.35)" textAnchor="middle">12.011</text>
               </g>
 
               {/* O */}
               <g transform="translate(458,262)">
-                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.03)"
+                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.7)"
                   stroke="rgba(255,100,0,0.22)" strokeWidth="1" />
                 <text x="7" y="16" fontSize="9" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.55)" fontWeight="700">8</text>
                 <text x="26" y="34" fontSize="22" fontFamily="system-ui,sans-serif"
-                  fontWeight="900" fill="rgba(255,255,255,0.8)" textAnchor="middle">O</text>
+                  fontWeight="900" fill="rgba(30,41,59,0.88)" textAnchor="middle">O</text>
                 <text x="26" y="47" fontSize="7.5" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.35)" textAnchor="middle">15.999</text>
               </g>
 
               {/* N */}
               <g transform="translate(52,395)">
-                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.03)"
+                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.7)"
                   stroke="rgba(255,100,0,0.22)" strokeWidth="1" />
                 <text x="7" y="16" fontSize="9" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.55)" fontWeight="700">7</text>
                 <text x="26" y="34" fontSize="22" fontFamily="system-ui,sans-serif"
-                  fontWeight="900" fill="rgba(255,255,255,0.8)" textAnchor="middle">N</text>
+                  fontWeight="900" fill="rgba(30,41,59,0.88)" textAnchor="middle">N</text>
                 <text x="26" y="47" fontSize="7.5" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.35)" textAnchor="middle">14.007</text>
               </g>
 
               {/* Fe */}
               <g transform="translate(435,410)">
-                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.03)"
+                <rect width="52" height="52" rx="9" fill="rgba(255,255,255,0.7)"
                   stroke="rgba(255,100,0,0.22)" strokeWidth="1" />
                 <text x="7" y="16" fontSize="9" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.55)" fontWeight="700">26</text>
                 <text x="26" y="34" fontSize="20" fontFamily="system-ui,sans-serif"
-                  fontWeight="900" fill="rgba(255,255,255,0.8)" textAnchor="middle">Fe</text>
+                  fontWeight="900" fill="rgba(30,41,59,0.88)" textAnchor="middle">Fe</text>
                 <text x="26" y="47" fontSize="7.5" fontFamily="ui-monospace,monospace"
                   fill="rgba(255,100,0,0.35)" textAnchor="middle">55.845</text>
               </g>
 
               {/* Bond lines */}
-              <line x1="104" y1="101" x2="192" y2="220" stroke="rgba(255,100,0,0.07)" strokeWidth="1" strokeDasharray="5 5" />
-              <line x1="440" y1="81" x2="348" y2="215" stroke="rgba(255,100,0,0.07)" strokeWidth="1" strokeDasharray="5 5" />
-              <line x1="458" y1="288" x2="348" y2="275" stroke="rgba(255,100,0,0.07)" strokeWidth="1" strokeDasharray="5 5" />
-              <line x1="104" y1="421" x2="206" y2="348" stroke="rgba(255,100,0,0.07)" strokeWidth="1" strokeDasharray="5 5" />
-              <line x1="435" y1="436" x2="345" y2="348" stroke="rgba(255,100,0,0.07)" strokeWidth="1" strokeDasharray="5 5" />
+              <line x1="104" y1="101" x2="192" y2="220" stroke="rgba(255,100,0,0.14)" strokeWidth="1" strokeDasharray="5 5" />
+              <line x1="440" y1="81" x2="348" y2="215" stroke="rgba(255,100,0,0.14)" strokeWidth="1" strokeDasharray="5 5" />
+              <line x1="458" y1="288" x2="348" y2="275" stroke="rgba(255,100,0,0.14)" strokeWidth="1" strokeDasharray="5 5" />
+              <line x1="104" y1="421" x2="206" y2="348" stroke="rgba(255,100,0,0.14)" strokeWidth="1" strokeDasharray="5 5" />
+              <line x1="435" y1="436" x2="345" y2="348" stroke="rgba(255,100,0,0.14)" strokeWidth="1" strokeDasharray="5 5" />
             </svg>
           </div>
         </div>
@@ -262,114 +282,66 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Language element cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 page-stagger">
-            {[
-              {
-                lang: t.home.languages.uz,
-                desc: t.home.languages.uzDesc,
-                flag: '🇺🇿',
-                num: '01',
-                symbol: 'Uz',
-                atomicMass: '1.001',
-                accent: 'from-blue-500 to-emerald-500',
-                accentBorder: 'rgba(52,211,153,0.4)',
-                accentGlow: 'rgba(52,211,153,0.08)',
-                props: [{ k: 'Daraja', v: 'DTM ready' }, { k: 'Til', v: 'Uzbek' }],
-              },
-              {
-                lang: t.home.languages.ru,
-                desc: t.home.languages.ruDesc,
-                flag: '🇷🇺',
-                num: '02',
-                symbol: 'Ru',
-                atomicMass: '1.002',
-                accent: 'from-slate-400 to-red-500',
-                accentBorder: 'rgba(239,68,68,0.4)',
-                accentGlow: 'rgba(239,68,68,0.08)',
-                props: [{ k: 'Daraja', v: 'EGE ready' }, { k: 'Til', v: 'Russian' }],
-              },
-              {
-                lang: t.home.languages.en,
-                desc: t.home.languages.enDesc,
-                flag: '🇬🇧',
-                num: '03',
-                symbol: 'En',
-                atomicMass: '1.003',
-                accent: 'from-blue-600 to-indigo-500',
-                accentBorder: 'rgba(99,102,241,0.4)',
-                accentGlow: 'rgba(99,102,241,0.08)',
-                props: [{ k: 'Daraja', v: 'IELTS ready' }, { k: 'Til', v: 'English' }],
-              },
-            ].map((l, i) => (
-              <div
-                key={i}
-                className="group relative rounded-[2rem] overflow-hidden cursor-default"
-                style={{
-                  background: 'rgba(255,255,255,0.035)',
-                  border: `1px solid rgba(255,255,255,0.08)`,
-                  backdropFilter: 'blur(24px)',
-                  transition: 'all 0.5s cubic-bezier(0.2,0.8,0.2,1)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = l.accentBorder;
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-8px) scale(1.01)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 28px 60px rgba(0,0,0,0.5), 0 0 60px ${l.accentGlow}`;
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0) scale(1)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(0,0,0,0.35)';
-                }}
-              >
-                {/* Top gradient bar */}
-                <div className={`h-1 w-full bg-gradient-to-r ${l.accent}`} />
+          {/* Language System — minimal premium block */}
+          <div className="max-w-6xl mx-auto relative">
+            <div className="relative rounded-[2.5rem] glass-panel border-white/8 p-6 sm:p-8 lg:p-10 shadow-premium overflow-hidden">
+              <div className="absolute top-0 left-10 right-10 h-[2px] bg-gradient-to-r from-cyan-500/65 via-orange-500/60 to-indigo-500/65" />
+              <div className="absolute -top-20 -right-16 w-64 h-64 bg-orange-500/8 rounded-full blur-[90px] pointer-events-none" />
+              <div className="absolute -bottom-20 -left-16 w-64 h-64 bg-sky-500/8 rounded-full blur-[90px] pointer-events-none" />
 
-                {/* Card body */}
-                <div className="p-8 pb-0">
-                  {/* Top row: atomic number + flag */}
-                  <div className="flex items-start justify-between mb-6">
-                    <span className="font-mono text-[11px] font-black text-orange-500/60">{l.num}</span>
-                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${l.accent} flex items-center justify-center text-2xl shadow-lg`}>
-                      {l.flag}
-                    </div>
+              <div className="relative grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-9 lg:gap-12 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/8 text-orange-500 text-[10px] font-black tracking-[0.18em] uppercase">
+                    3 ta yo&apos;nalish
                   </div>
 
-                  {/* Big element symbol */}
-                  <div className="mb-1">
-                    <span
-                      className={`text-[80px] leading-none font-black bg-gradient-to-br ${l.accent} bg-clip-text text-transparent`}
-                      style={{ letterSpacing: '-2px' }}
-                    >
-                      {l.symbol}
-                    </span>
+                  <div className="mt-6 space-y-3">
+                    {languageTracks.map((track) => (
+                      <div
+                        key={track.key}
+                        className="group rounded-2xl border border-white/8 bg-white/5 px-4 sm:px-5 py-4 transition-all duration-300 hover:border-orange-500/30 hover:bg-white/8"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${track.accent} text-xl flex items-center justify-center shadow-lg shadow-black/5`}>
+                            {track.flag}
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-[10px] font-mono text-zinc-600">{track.key}</div>
+                            <div className="text-sm font-black uppercase tracking-[0.13em] text-zinc-100 truncate">{track.lang}</div>
+                          </div>
+                        </div>
+                        <p className="mt-3 text-sm text-zinc-400 leading-relaxed">{track.desc}</p>
+                      </div>
+                    ))}
                   </div>
-
-                  {/* Atomic mass */}
-                  <div className="font-mono text-[11px] text-zinc-600 mb-4">{l.atomicMass}</div>
-
-                  {/* Separator */}
-                  <div className="h-px bg-white/6 mb-5" />
-
-                  {/* Language name */}
-                  <h3 className="text-base font-black text-zinc-100 uppercase tracking-widest mb-3">{l.lang}</h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-zinc-400 leading-relaxed mb-6">{l.desc}</p>
                 </div>
 
-                {/* Bottom properties row */}
-                <div className="mx-8 mb-8 grid grid-cols-2 gap-3">
-                  {l.props.map((p, pi) => (
-                    <div key={pi} className="rounded-xl px-3 py-2.5" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <div className="text-[9px] font-black text-zinc-600 uppercase tracking-wider mb-0.5">{p.k}</div>
-                      <div className="text-xs font-bold text-zinc-300">{p.v}</div>
+                <div className="relative flex items-center justify-center">
+                  <div className="relative w-full max-w-[340px] aspect-square">
+                    <div className="absolute inset-0 rounded-full border border-white/10" />
+                    <div className="absolute inset-[13%] rounded-full border border-orange-500/20 border-dashed" />
+                    <div className="absolute inset-[31%] rounded-full border border-white/10" />
+
+                    {languageTracks.map((track) => (
+                      <div key={track.short} className={`absolute ${track.nodePos}`}>
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${track.accent} text-2xl flex items-center justify-center shadow-xl shadow-black/10`}>
+                          {track.flag}
+                        </div>
+                        <div className="mt-2 text-center text-[10px] font-black tracking-[0.2em] text-zinc-500">{track.short}</div>
+                      </div>
+                    ))}
+
+                    <div className="absolute inset-0 grid place-items-center">
+                      <div className="w-36 h-36 rounded-full border border-white/8 bg-white/8 backdrop-blur-sm shadow-[0_14px_32px_rgba(15,23,42,0.1)] flex flex-col items-center justify-center text-center px-2">
+                        <span className="text-[9px] font-black tracking-[0.2em] text-orange-500 uppercase">JAP Academy</span>
+                        <span className="text-3xl font-black text-zinc-100 leading-none my-1">3</span>
+                        <span className="text-[10px] font-black tracking-[0.24em] text-zinc-500 uppercase">Language Track</span>
+                      </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -380,7 +352,6 @@ export default function HomePage() {
       <section className="page-section reveal-3 px-6 py-28 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="text-orange-500 text-[10px] font-black tracking-[0.3em] uppercase mb-4">⬡ {t.home.whyBadge}</div>
             <h2 className="text-3xl md:text-5xl font-black text-zinc-50 tracking-tight leading-none">
               {t.home.whyTitleBefore} <br />
               <span className="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
@@ -444,7 +415,7 @@ export default function HomePage() {
                   {t.home.ctaButton}
                 </Link>
                 <div className="flex items-center gap-2 text-zinc-500 text-[11px] font-black tracking-widest uppercase sm:px-6">
-                  <span className="text-orange-500">✦</span> +998 90 123 45 67
+                  <span className="text-orange-500">✦</span> +9989701350110
                 </div>
               </div>
             </div>

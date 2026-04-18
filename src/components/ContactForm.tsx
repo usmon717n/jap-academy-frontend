@@ -20,6 +20,8 @@ const INITIAL_FORM: FormState = {
   message: '',
 };
 
+const REQUEST_TIMEOUT_MS = 15_000;
+
 export default function ContactForm() {
   const { t } = useLanguage();
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
@@ -30,6 +32,8 @@ export default function ContactForm() {
     event.preventDefault();
     setIsSubmitting(true);
     setSubmitState(null);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
     try {
       const response = await fetch('/api/contact', {
@@ -38,10 +42,19 @@ export default function ContactForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(form),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
-        throw new Error(t.form.errorDefault);
+        const errorPayload = await response.json().catch(() => null);
+        const serverError =
+          errorPayload &&
+          typeof errorPayload === 'object' &&
+          'error' in errorPayload &&
+          typeof (errorPayload as { error?: unknown }).error === 'string'
+            ? (errorPayload as { error: string }).error
+            : null;
+        throw new Error(serverError || t.form.errorDefault);
       }
 
       setSubmitState({
@@ -53,11 +66,15 @@ export default function ContactForm() {
       setSubmitState({
         type: 'error',
         message:
+          error instanceof Error && error.name === 'AbortError'
+            ? t.form.errorTimeout
+            :
           error instanceof Error
             ? error.message
             : t.form.errorDefault,
       });
     } finally {
+      clearTimeout(timeoutId);
       setIsSubmitting(false);
     }
   };

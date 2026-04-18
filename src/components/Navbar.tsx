@@ -66,7 +66,7 @@ export default function Navbar() {
                   <circle cx="12" cy="12" r="2" fill="white" stroke="none" />
                 </svg>
               </div>
-              <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-amber-400 border-2 border-[#080a0d] animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-amber-400 border-2 border-[#f8f6f2] animate-pulse" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-black tracking-tight bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
@@ -89,11 +89,11 @@ export default function Navbar() {
                   className={`relative px-6 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all duration-400 ${
                     isActive
                       ? 'text-white'
-                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/5'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
                   }`}
                 >
                   {isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 rounded-xl shadow-lg shadow-orange-500/30 z-0" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 rounded-xl shadow-md shadow-orange-500/20 z-0" />
                   )}
                   <span className="relative z-10">{item.label}</span>
                 </Link>
@@ -109,9 +109,11 @@ export default function Navbar() {
                 onClick={() => setIsLangOpen(v => !v)}
                 className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border transition-all duration-300 cursor-pointer select-none"
                 style={{
-                  background: isLangOpen ? 'rgba(255,100,0,0.1)' : 'rgba(255,255,255,0.05)',
-                  borderColor: isLangOpen ? 'rgba(255,100,0,0.45)' : 'rgba(255,255,255,0.09)',
-                  boxShadow: isLangOpen ? '0 0 20px rgba(255,100,0,0.1)' : 'none',
+                  background: isLangOpen ? 'rgba(255,100,0,0.08)' : 'rgba(255,255,255,0.76)',
+                  borderColor: isLangOpen ? 'rgba(255,100,0,0.34)' : 'rgba(148,163,184,0.32)',
+                  boxShadow: isLangOpen
+                    ? '0 10px 24px rgba(255,100,0,0.14)'
+                    : '0 10px 20px rgba(15,23,42,0.08)',
                 }}
               >
                 <span className="text-lg leading-none">{LOCALE_FLAG[locale]}</span>
@@ -130,7 +132,7 @@ export default function Navbar() {
               <div
                 className="absolute top-full right-0 mt-2 w-48 py-1.5 rounded-2xl border border-white/8 shadow-2xl z-50 overflow-hidden"
                 style={{
-                  background: 'rgba(14,10,6,0.96)',
+                  background: 'rgba(255,255,255,0.94)',
                   backdropFilter: 'blur(24px)',
                   WebkitBackdropFilter: 'blur(24px)',
                   opacity: isLangOpen ? 1 : 0,
@@ -156,7 +158,7 @@ export default function Navbar() {
                         background: isActive ? 'rgba(255,100,0,0.1)' : 'transparent',
                       }}
                       onMouseEnter={e => {
-                        if (!isActive) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)';
+                        if (!isActive) (e.currentTarget as HTMLElement).style.background = 'rgba(148,163,184,0.14)';
                       }}
                       onMouseLeave={e => {
                         if (!isActive) (e.currentTarget as HTMLElement).style.background = 'transparent';
@@ -186,6 +188,9 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={t.navbar.menuAria}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav-menu"
             className="md:hidden w-11 h-11 rounded-xl flex items-center justify-center text-zinc-400 hover:text-orange-400 glass-panel border-white/8 transition-colors"
           >
             <div className="relative w-6 h-5">
@@ -198,7 +203,7 @@ export default function Navbar() {
 
         {/* MOBILE MENU */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-8 animate-fade-slide">
+          <div id="mobile-nav-menu" className="md:hidden pb-8 animate-fade-slide">
             <div className="p-6 rounded-[2rem] glass-panel border-white/8 shadow-premium">
               <div className="flex flex-col gap-2">
                 {navItems.map((item) => (
@@ -208,7 +213,7 @@ export default function Navbar() {
                     className={`px-6 py-4 rounded-2xl text-sm font-bold tracking-wide transition-all ${
                       pathname === item.href
                         ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg shadow-orange-500/25'
-                        : 'text-zinc-300 hover:bg-white/5 hover:text-zinc-100'
+                        : 'text-zinc-400 hover:text-orange-500'
                     }`}
                   >
                     {item.label}
@@ -217,7 +222,7 @@ export default function Navbar() {
 
                 <div className="my-4 h-px bg-white/6" />
 
-                <div className="flex flex-col gap-1.5 mb-4 rounded-2xl overflow-hidden border border-white/8" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                <div className="flex flex-col gap-1.5 mb-4 rounded-2xl overflow-hidden border border-white/8" style={{ background: 'rgba(248,250,252,0.72)' }}>
                   {LOCALES.map((item) => {
                     const isActive = locale === item;
                     return (
