@@ -1,0 +1,15 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8C57A"/>
+      <stop offset="100%" stop-color="#FF6A3D"/>
+    </linearGradient>
+    <linearGradient id="text" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F9B363"/>
+      <stop offset="100%" stop-color="#F97A3D"/>
+    </linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="24" fill="url(#bg)"/>
+  <rect x="24" y="48" width="112" height="64" rx="4" fill="#FFF8F0"/>
+  <text x="80" y="92" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="42" fill="url(#text)">JAP</text>
+</svg>

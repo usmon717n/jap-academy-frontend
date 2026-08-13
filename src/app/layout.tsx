@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ScrollReveal from '@/components/ScrollReveal';
 import { LanguageProvider } from '@/context/LanguageContext';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' });
@@ -21,15 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="uz" className={inter.variable}>
       <body className="min-h-screen flex flex-col font-sans">
+        <noscript>
+          <style>{`.page-section,.page-stagger>*,.lang-lane,[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <LanguageProvider>
-          <div className="chem-bg" aria-hidden="true">
-            <div className="chem-bg__base" />
-            <div className="chem-bg__orb chem-bg__orb--1" />
-            <div className="chem-bg__orb chem-bg__orb--2" />
-            <div className="chem-bg__orb chem-bg__orb--3" />
-            <div className="chem-bg__orb chem-bg__orb--4" />
-            <div className="chem-bg__mist" />
-          </div>
+          <ScrollReveal />
+          <div className="chem-bg" aria-hidden="true" />
           <Navbar />
           <main className="flex-1 page-content">{children}</main>
           <Footer />

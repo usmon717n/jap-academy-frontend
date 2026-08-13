@@ -1,28 +1,67 @@
 'use client';
 
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import ChemBackdrop from '@/components/ChemBackdrop';
+
+/* Deterministic bubble field — left %, size, drift, duration, delay */
+const BUBBLES = [
+  { l: '6%', s: 14, x: '26px', d: '17s', del: '0s' },
+  { l: '14%', s: 8, x: '-18px', d: '21s', del: '-6s' },
+  { l: '23%', s: 19, x: '32px', d: '15s', del: '-11s' },
+  { l: '31%', s: 10, x: '-24px', d: '24s', del: '-3s' },
+  { l: '40%', s: 6, x: '16px', d: '19s', del: '-15s' },
+  { l: '48%', s: 16, x: '-30px', d: '22s', del: '-8s' },
+  { l: '57%', s: 9, x: '22px', d: '18s', del: '-2s' },
+  { l: '65%', s: 22, x: '-20px', d: '26s', del: '-13s' },
+  { l: '73%', s: 11, x: '28px', d: '16s', del: '-5s' },
+  { l: '81%', s: 7, x: '-16px', d: '23s', del: '-18s' },
+  { l: '89%', s: 17, x: '24px', d: '20s', del: '-9s' },
+  { l: '95%', s: 9, x: '-26px', d: '25s', del: '-4s' },
+];
 
 export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="relative mt-24 overflow-hidden border-t border-white/6 pb-12">
-      {/* Top glow line */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
+    <footer className="footer-shell relative mt-16 pb-5">
+      {/* Glowing seam */}
+      <div className="footer-seam" aria-hidden="true" />
 
-      {/* Molecular hex pattern */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='90' height='90' viewBox='0 0 90 90' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M45 8 L77.97 26.5 L77.97 63.5 L45 82 L12.03 63.5 L12.03 26.5 Z' fill='none' stroke='%23ff6500' stroke-width='1'/%3E%3C/svg%3E")`, backgroundSize: '90px 90px' }} />
+      {/* Drifting warm aurora */}
+      <div className="footer-aurora footer-aurora--a" aria-hidden="true" />
+      <div className="footer-aurora footer-aurora--b" aria-hidden="true" />
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+      {/* Molecular line art */}
+      <ChemBackdrop className="footer-chem" />
+
+      {/* Rising reaction bubbles */}
+      <div className="footer-bubbles" aria-hidden="true">
+        {BUBBLES.map((b, i) => (
+          <span
+            key={i}
+            className="footer-bubble"
+            style={{
+              left: b.l,
+              width: b.s,
+              height: b.s,
+              '--bd': b.d,
+              '--bdel': b.del,
+              '--bx': b.x,
+            } as CSSProperties}
+          />
+        ))}
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-7 mb-10">
 
           {/* Logo + socials */}
-          <div className="flex flex-col items-center sm:items-start">
-            <Link href="/" className="flex items-center gap-4 group mb-8">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white shadow-xl shadow-orange-500/25">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div data-reveal className="flex flex-col items-center sm:items-start">
+            <Link href="/" className="flex items-center gap-3 group mb-4">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white shadow-lg shadow-orange-500/25">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <ellipse cx="12" cy="12" rx="10" ry="4" />
                   <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
                   <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-60 12 12)" />
@@ -30,16 +69,16 @@ export default function Footer() {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-black tracking-tight text-zinc-100">JAP ACADEMY</span>
+                <span className="text-[13px] font-black tracking-tight text-zinc-100">JAP ACADEMY</span>
                 <span className="text-[7px] font-bold tracking-[0.2em] text-zinc-600 uppercase leading-none mt-0.5">{t.navbar.brandTagline}</span>
               </div>
             </Link>
 
-            <p className="text-xs text-zinc-500 leading-relaxed mb-8 max-w-[240px] text-center sm:text-left font-medium">
+            <p className="text-[11px] text-zinc-500 leading-relaxed mb-4 max-w-[220px] text-center sm:text-left font-medium">
               {t.footer.description}
             </p>
 
-            <div className="flex gap-3">
+            <div className="flex gap-2.5">
               {[
                 {
                   h: "https://t.me/jap-academy",
@@ -58,17 +97,17 @@ export default function Footer() {
                 }
               ].map((s, idx) => (
                 <a key={idx} href={s.h} target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl bg-white/4 border border-white/8 hover:border-white/15">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill={s.f}>{s.i}</svg>
+                  className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg bg-white/4 border border-white/8 hover:border-white/15">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill={s.f}>{s.i}</svg>
                 </a>
               ))}
             </div>
           </div>
 
           {/* Pages */}
-          <div className="flex flex-col items-center sm:items-start">
-            <h4 className="text-[10px] font-black tracking-[0.3em] text-orange-500 mb-8 uppercase">{t.footer.pagesTitle}</h4>
-            <div className="flex flex-col gap-4 items-center sm:items-start">
+          <div data-reveal style={{ '--rd': '120ms' } as CSSProperties} className="flex flex-col items-center sm:items-start">
+            <h4 className="footer-heading text-[9px] font-black tracking-[0.28em] text-orange-500 mb-4 uppercase">{t.footer.pagesTitle}</h4>
+            <div className="flex flex-col gap-2.5 items-center sm:items-start">
               {[
                 { l: t.navbar.home, h: '/' },
                 { l: t.navbar.about, h: '/about' },
@@ -76,7 +115,7 @@ export default function Footer() {
                 { l: t.navbar.contact, h: '/contact' }
               ].map(x => (
                 <Link key={x.h} href={x.h}
-                  className="text-[11px] font-bold text-zinc-500 hover:text-orange-400 transition-colors uppercase tracking-widest">
+                  className="text-[10.5px] font-bold text-zinc-500 hover:text-orange-400 transition-colors uppercase tracking-[0.12em]">
                   {x.l}
                 </Link>
               ))}
@@ -84,9 +123,9 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <h4 className="text-[10px] font-black tracking-[0.3em] text-orange-500 mb-8 uppercase">{t.footer.contactTitle}</h4>
-            <div className="flex flex-col gap-4 text-xs font-semibold text-zinc-500">
+          <div data-reveal style={{ '--rd': '240ms' } as CSSProperties} className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h4 className="footer-heading text-[9px] font-black tracking-[0.28em] text-orange-500 mb-4 uppercase">{t.footer.contactTitle}</h4>
+            <div className="flex flex-col gap-2.5 text-[11px] font-semibold text-zinc-500">
               <p className="hover:text-zinc-300 transition-colors">{t.contact.phoneNumber}</p>
               <p className="hover:text-zinc-300 transition-colors">info@japacademy.uz</p>
               <p className="max-w-[180px] leading-relaxed">{t.contact.address}</p>
@@ -94,12 +133,12 @@ export default function Footer() {
           </div>
 
           {/* Map */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <h4 className="text-[10px] font-black tracking-[0.3em] text-orange-500 mb-8 uppercase">{t.footer.mapTitle}</h4>
-            <div className="rounded-[2rem] overflow-hidden border border-white/8 p-2 glass-panel shadow-2xl">
+          <div data-reveal style={{ '--rd': '360ms' } as CSSProperties} className="sm:col-span-2 lg:col-span-1">
+            <h4 className="footer-heading text-[9px] font-black tracking-[0.28em] text-orange-500 mb-4 uppercase">{t.footer.mapTitle}</h4>
+            <div className="rounded-[1.4rem] overflow-hidden border border-white/8 p-1.5 glass-panel shadow-lg">
               <iframe
                 src="https://maps.google.com/maps?q=41.282271,69.210930&z=16&output=embed"
-                width="100%" height="180" style={{ border: 0, borderRadius: '1.6rem' }}
+                width="100%" height="132" style={{ border: 0, borderRadius: '1.1rem' }}
                 title="JAP Academy location map"
                 allowFullScreen loading="lazy"
               />
@@ -108,10 +147,10 @@ export default function Footer() {
         </div>
 
         {/* Footer signature */}
-        <div className="pt-10 border-t border-white/6 flex flex-col items-center gap-5 text-center">
+        <div className="pt-5 border-t border-white/6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 text-center">
           <span className="text-[9px] font-bold text-zinc-600 tracking-[0.15em] uppercase">{t.footer.copyright}</span>
 
-          <div className="w-full flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <a
               href="https://t.me/umaraliyew7"
               target="_blank"
